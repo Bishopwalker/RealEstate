@@ -1,10 +1,13 @@
 
 import Header from "./header/Header";
-import Home from "./home/Home";
+// @ts-ignore
+ import Home from "./home/Home.jsx";
 import './App.css'
 import {Box} from "@mui/material";
-import {Route, Routes} from "react-router-dom";
 
+import {Route, Routes} from "react-router-dom";
+// @ts-ignore
+import MyStory from "./myStory/MyStory";
 
 function App() {
 
@@ -17,11 +20,12 @@ function App() {
                 height: '100vh',
                 }}
         >
+    <Header/>
             <Routes>
-                {/*<Route path="/fine-properties" element={<FineProperties/>} />*/}
+
+                <Route path='/about' element={<MyStory/>}/>
                 {/* other routes */}
             </Routes>
-    <Header/>
             <Home/>
         </Box>
 
