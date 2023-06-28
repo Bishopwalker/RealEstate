@@ -1,47 +1,49 @@
 
+import { Link } from 'react-router-dom';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
  import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Avatar from '@mui/material/Avatar';
 
 const Header = () => {
+    const navItems = [
+        { name: 'My Story', url: '/fine-properties' }, // First item replaced here
+        { name: 'Associates', url: '/associates' },
+        { name: 'Exclusive Properties', url: '/properties/sale' },
+        { name: 'Developments', url: '/developments' },
+        { name: 'Media', url: '/media' },
+        { name: 'Contact Us', url: '/contact' },
+    ];
+
     return (
-        <Box
-            sx={{
-                width: '100%',
-                height: '100vh',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#f5f5f5',
-                p: 4
-            }}
-        >
-            <Box
-                sx={{
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    p: 2,
-                    mb: 2,
-                    backgroundColor: '#ffffff',
-                    boxShadow: 3
-                }}
-            >
-                <Typography variant="h6" component="div">
+        <AppBar position="static" sx={{ backgroundColor: 'black' }}>
+            <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Typography
+                    variant="h4"
+                    component="span"
+                    sx={{ fontFamily: "'Great Vibes', cursive", color: 'white' }}
+                >
                     David Fine
                 </Typography>
-                <Box sx={{display: 'flex', alignItems: 'center'}}>
-                    <Avatar alt="Keller Williams" src="path/to/logo.png" />
-                    <Typography variant="h6" component="div" sx={{ml: 1}}>
-                        Keller Williams
-                    </Typography>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', flexGrow: 1, mx: 8 }}>
+                    {navItems.map((item, index) => (
+                        <Button key={index} component={Link} to={item.url} sx={{ color: 'white' }}>
+                            {item.name}
+                        </Button>
+                    ))}
                 </Box>
-            </Box>
-        </Box>
+            </Toolbar>
+        </AppBar>
     );
+
 }
 
-export default Header;
 
+
+
+
+
+
+
+        export default Header;
