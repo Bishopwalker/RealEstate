@@ -12,7 +12,8 @@ import MyStory from "./myStory/MyStory";
 import CityList from "./areas/CityList";
 // @ts-ignore
 import Footer from "./footer/Footer";
-
+// @ts-ignore
+import Contact from "./contact/Contact";
 function App() {
 
 
@@ -30,6 +31,7 @@ function App() {
                 <Route path='/' element={<Home/>}/>
                 <Route path='/about' element={<MyStory/>}/>
                 <Route path='/cities' element={<CityList/>}/>
+                <Route path='/contact' element={<Contact/>}/>
                 {/* other routes */}
             </Routes>
             <Footer/>

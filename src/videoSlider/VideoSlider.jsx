@@ -15,7 +15,7 @@ export default function VideoSlider() {
     // Paths to your .mov files
     const videos = [
         {name:'/fishing.mp4',message:'Fishing'},
-        {name:'/mov.mp4',message: 'Boating'},
+        {name:'/jetski.mp4',message: 'Jet Skiing'},
         {name:'/mov1.mp4',message: 'Crabbing'},
         {name:'/mov2.mp4',message: 'Kayaking'},
         {name:'/mov3.mp4',message: 'Sailing'},
