@@ -8,6 +8,10 @@ import {Box} from "@mui/material";
 import {Route, Routes} from "react-router-dom";
 // @ts-ignore
 import MyStory from "./myStory/MyStory";
+// @ts-ignore
+import CityList from "./areas/CityList";
+// @ts-ignore
+import Footer from "./footer/Footer";
 
 function App() {
 
@@ -23,10 +27,13 @@ function App() {
     <Header/>
             <Routes>
 
+                <Route path='/' element={<Home/>}/>
                 <Route path='/about' element={<MyStory/>}/>
+                <Route path='/cities' element={<CityList/>}/>
                 {/* other routes */}
             </Routes>
-            <Home/>
+            <Footer/>
+
         </Box>
 
    </>

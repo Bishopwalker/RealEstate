@@ -42,6 +42,8 @@ const MyStory = () => {
                 So please remember, I was once where you are now, needing a Waterfront Expert to help find the "right" place for
                 you and your family. If you want your own "Get-a-Way"....I can help!
             </Typography>
+
+
         </>
     );
 };

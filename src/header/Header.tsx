@@ -25,10 +25,10 @@ const Header = () => {
 
     const navItems = [
         { name: 'My Story', url: '/about' },
-        { name: 'Associates', url: '/associates' },
-        { name: 'Exclusive Properties', url: '/properties/sale' },
+        { name: 'Properties', url: '/properties' },
+        { name: 'Areas Served', url: '/cities' },
         { name: 'Developments', url: '/developments' },
-        { name: 'Media', url: '/media' },
+        { name: 'Reviews', url: '/review' },
         { name: 'Contact Us', url: '/contact' },
     ];
 
