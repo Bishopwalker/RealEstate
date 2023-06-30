@@ -6,6 +6,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
 import {Link} from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
+import MailIcon from "@mui/icons-material/Mail";
 const useStyles = makeStyles({
     button: {
         color: 'white',
@@ -55,6 +57,9 @@ const Header = () => {
                             {item.name}
                         </Button>
                     ))}
+                    <SearchIcon />
+                    <MailIcon />
+
                 </Box>
             </Toolbar>
         </AppBar>
