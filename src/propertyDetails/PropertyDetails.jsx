@@ -8,15 +8,20 @@ const PropertyDetails = () => {
     const property = location.state?.property;
 
     console.log(property.data.property_detail);
-
-    const photos = property.data.property_detail.photos.map((photo) => {
+const data = property.data.results[0]
+    const photos =  data.photos.map((photo,index) => {
         return (
-            <img src={photo} alt="property"/>
+            <img src={photo.href} style={{width: "250px", height: "250px"}} alt="property"/>
         )
     })
 
+const address = data.location.address.line + " " + data.location.address.city + " " + data.location.address.state_code + " " + data.location.address.postal_code;
+
         return (
             <div>
+                <Typography variant="h4" align="center">
+                    {address}
+                </Typography>
                 {photos}
             </div>
         )

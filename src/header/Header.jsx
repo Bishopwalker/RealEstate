@@ -71,7 +71,7 @@ console.log(searchInput)
     }
         try {
             const response = await axios.get(
-                `http://localhost:5000/api/property-detail/${searchInput}`
+                `http://localhost:5000/api/property-by-mls-id/${searchInput}`
             );
             console.log(response.data);
             setProperty(response.data);
