@@ -1,5 +1,5 @@
 
-import Header from "./header/Header";
+import Header from "./header/Header.jsx";
 // @ts-ignore
  import Home from "./home/Home.jsx";
 import './App.css'
@@ -14,6 +14,8 @@ import CityList from "./areas/CityList";
 import Footer from "./footer/Footer";
 // @ts-ignore
 import Contact from "./contact/Contact";
+// @ts-ignore
+import PropertyDetails from "./propertyDetails/PropertyDetails";
 function App() {
 
 
@@ -32,6 +34,7 @@ function App() {
                 <Route path='/about' element={<MyStory/>}/>
                 <Route path='/cities' element={<CityList/>}/>
                 <Route path='/contact' element={<Contact/>}/>
+                <Route path='/property-details' element={<PropertyDetails/>}/>
                 {/* other routes */}
             </Routes>
             <Footer/>
