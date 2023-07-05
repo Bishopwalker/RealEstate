@@ -50,7 +50,7 @@ const MortgageCalculator = ({ closeModal }) => {
                             <TextField
                                 label="Price"
                                 type="text"
-                                value={price}
+                                value={"$" + price}
                                 onChange={(e) => setPrice(e.target.value)}
                                 onBlur={(e) => {
                                     if (e.target.value === '' || isNaN(e.target.value) || e.target.value < 0) {
@@ -63,7 +63,7 @@ const MortgageCalculator = ({ closeModal }) => {
                             <TextField
                                 label="Percent Down"
                                 type="text"
-                                value={percentDown}
+                                value={percentDown + '%'}
                                 onChange={(e) => setPercentDown(e.target.value)}
                                 onBlur={(e) => {
                                     if (
@@ -94,7 +94,7 @@ const MortgageCalculator = ({ closeModal }) => {
                             <TextField
                                 label="Interest Rate"
                                 type="text"
-                                value={interestRate}
+                                value={interestRate + '%'}
                                 onChange={(e) => setInterestRate(e.target.value)}
                                 onBlur={(e) => {
                                     if (
@@ -109,7 +109,7 @@ const MortgageCalculator = ({ closeModal }) => {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField label="Payment" type="text" value={payment} readOnly />
+                            <TextField label="Payment" type="text" value={"$" + payment} readOnly />
                         </Grid>
                         <Grid item xs={12}>
                             <Button variant="contained" onClick={computePayment}>
