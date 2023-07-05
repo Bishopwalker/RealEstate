@@ -1,14 +1,16 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import { useLocation } from 'react-router-dom';
-import { Box, Button, Grid, ThemeProvider } from '@mui/material';
+import {Box, Button, Grid, Modal, ThemeProvider} from '@mui/material';
 import { createTheme } from '@mui/material/styles';
+import MortgageCalculator from "../calculator/PaymentCalculator.jsx";
 
 const PropertyDetails = () => {
     const location = useLocation();
     const property = location.state?.property;
     const data = property.data.results[0];
     const [viewMore, setViewMore] = React.useState(false);
+    const [isOpen, setIsOpen] = React.useState(false);
 
     const propertyFields = [
         { label: 'Branding', value: data.branding },
@@ -35,7 +37,6 @@ const PropertyDetails = () => {
         { label: 'Tags', value: data.tags },
         { label: 'Virtual Tours', value: data.virtual_tours },
     ];
-
     const photos = data.photos.map((photo, index) => (
         <img key={index} src={photo.href} style={{ width: '250px', height: '250px' }} alt="property" />
     ));
@@ -51,11 +52,22 @@ const PropertyDetails = () => {
 
     const theme = createTheme(); // Create a theme object
 
+    const openModal = () => {
+        setIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsOpen(false);
+    };
+
     return (
         <ThemeProvider theme={theme}>
             <Box>
                 <Typography variant="h4" align="center">
                     {address}
+                </Typography>
+                <Typography variant="h5" align="center">
+                    Listing Price: ${data.list_price}
                 </Typography>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
@@ -81,11 +93,18 @@ const PropertyDetails = () => {
                                     )}
                                 </Box>
                             ))}
+                        <Button onClick={openModal}>Calculate My Payment</Button>
+                        <Modal open={isOpen} onClose={closeModal}>
+                            {/* Wrap the contents inside a valid child element */}
+                            <div>
+                                {/* Mortgage calculator component */}
+                                <MortgageCalculator closeModal={closeModal} />
+                            </div>
+                        </Modal>
                     </Grid>
                 </Grid>
             </Box>
         </ThemeProvider>
     );
 };
-
 export default PropertyDetails;

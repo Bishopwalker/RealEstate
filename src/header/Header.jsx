@@ -125,25 +125,25 @@ const Header = () => {
                             </Button>
                         ))}
 
-                        <form onSubmit={fetchProduct}>
-                            <TextField
-                                id="standard-bare"
-                                variant="outlined"
-                                onChange={handleSearchInputChange}
-                                sx={{ backgroundColor: 'white', color: 'red' }}
-                                placeholder="Enter MLS #"
-                                InputProps={{
-                                    endAdornment: (
-                                        <IconButton>
-                                            <SearchOutlined />
-                                        </IconButton>
-                                    ),
-                                }}
-                            />
-                        </form>
+                        <MailIcon />
                     </Box>
+                    <form onSubmit={fetchProduct}>
+                        <TextField
+                            id="standard-bare"
+                            variant="outlined"
+                            onChange={handleSearchInputChange}
+                            sx={{ backgroundColor: 'white', color: 'red' }}
+                            placeholder="MLS #"
+                            InputProps={{
+                                endAdornment: (
+                                    <IconButton>
+                                        <SearchOutlined />
+                                    </IconButton>
+                                ),
+                            }}
+                        />
+                    </form>
 
-                    <MailIcon />
                 </Toolbar>
             </AppBar>
 
@@ -158,7 +158,7 @@ const Header = () => {
                         {navItems.map((item, index) => (
                             <ListItem
                                 key={index}
-                                button
+
                                 component={Link}
                                 to={item.url}
                                 className={classes.button}
