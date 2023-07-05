@@ -1,11 +1,12 @@
 import VideoSlider from "../videoSlider/VideoSlider.jsx";
 import Houses from "../imageSlider/Houses.jsx";
+import {Box} from "@mui/material";
 export default function Home() {
     return(
-        <div>
+        <Box>
             <VideoSlider/>
             <Houses/>
-        </div>
+        </Box>
 
     );
 }
