@@ -23,7 +23,18 @@
   font-family: Roboto, Helvetica, Arial, sans-serif;
   margin: 20px 10px; /* Adjust the vertical and horizontal margins */
 }
+.card_details {
+  border: 1px solid #ccc;
+  background: #2C3E50;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 10px;
 
+  color: #fff;
+  cursor: pointer;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  margin: 20px 10px; /* Adjust the vertical and horizontal margins */
+}
 
 .card-top h1 {
   font-size: 0.9rem;

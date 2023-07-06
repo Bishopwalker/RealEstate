@@ -1,25 +1,19 @@
 
 import Header from "./header/Header.jsx";
-// @ts-ignore
  import Home from "./home/Home.jsx";
 import './App.css'
 import {Box} from "@mui/material";
 
 import {Route, Routes} from "react-router-dom";
-// @ts-ignore
 import MyStory from "./myStory/MyStory";
-// @ts-ignore
 import CityList from "./areas/CityList";
-// @ts-ignore
 import Footer from "./footer/Footer";
-// @ts-ignore
 import Contact from "./contact/Contact";
-// @ts-ignore
 import PropertyDetails from "./propertyDetails/PropertyDetails";
 function App() {
 
 
-  return (
+    return (
     <>
         <Box
             sx={{
@@ -30,7 +24,7 @@ function App() {
                 <Header/>
 
             <Routes>
-                <Route path='/' element={<Home/>}/>
+                <Route  exact path='/' element={<Home  />}/>
                 <Route path='/about' element={<MyStory/>}/>
                 <Route path='/cities' element={<CityList/>}/>
                 <Route path='/contact' element={<Contact/>}/>

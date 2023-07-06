@@ -5,7 +5,8 @@ import {Box, Button, Grid, Modal, ThemeProvider} from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import MortgageCalculator from "../calculator/PaymentCalculator.jsx";
 import axios from "axios";
-
+import Houses from "../imageSlider/Houses.jsx";
+import ImageSlider from "./ImageSlider.jsx";
 
 
 const PropertyDetails = () => {
@@ -16,7 +17,8 @@ const PropertyDetails = () => {
     const [isOpen, setIsOpen] = React.useState(false);
     const [propertyDetail, setPropertyDetail] = React.useState(null);
 
-    console.log("data", data)
+
+    console.log("prop", propertyDetail)
 
     const fetchProductDeatils = async ( ) => {
 
@@ -31,7 +33,7 @@ const PropertyDetails = () => {
 
             useEffect(() => {
                 fetchProductDeatils();
-
+                console.log("prop", propertyDetail)
             }, [data]);
 
     const propertyFields = [
@@ -62,8 +64,8 @@ const PropertyDetails = () => {
     const photos = data.photos.map((photo, index) => (
         <div
             key={index}
-            className="card">
-            <div className="card-top">
+           >
+            <div >
                 <img
                     style={{ width: '250px', height: '250px' }}
                     src={photo.href}
@@ -96,11 +98,70 @@ const PropertyDetails = () => {
     const closeModal = () => {
         setIsOpen(false);
     };
-    console.log(data)
+    const features = {
+        baths: 2,
+        baths_1qtr: null,
+        baths_3qtr: null,
+        baths_full: 2,
+        baths_half: null,
+        beds: 4,
+        garage: null,
+        lot_sqft: 73616,
+        name: null,
+        sold_price: 460000,
+        sqft: 1872,
+        stories: 2,
+        sub_type: null,
+        type: "single_family",
+        year_built: 1898
+    };
+    const amenities = [
+        'community_boat_facilities',
+        'community_outdoor_space',
+        'family_room',
+        'fireplace',
+        'hardwood_floors',
+        'recreation_facilities',
+        'river_view',
+        'view',
+        'washer_dryer',
+        'water_view',
+        'two_or_more_stories',
+        'waterfront',
+        'golf_course',
+        'views',
+        'medicalcare',
+        'shopping',
+    ];
+    const amenitiesList = Object.values(amenities).map((key, index) => (
+        <div key={index}>
+            <Typography variant="heading" align="center">
+                {key}
+            </Typography>
 
+            <Typography variant="subtitle1" align="center">
+                {features[key]}
+            </Typography>
+        </div>
+    ));
+
+    const featuresList = Object.keys(features).map((key, index) => (
+        <div key={index}>
+            <Typography variant="h6" align="center">
+                {key + ':'}
+            </Typography>
+
+            <Typography variant="subHeading" align="center">
+                { features[key]==null?'N/A':features[key]}
+            </Typography>
+        </div>
+    ));
     return (
         <ThemeProvider theme={theme}>
-                   <Box>
+                   <Box sx={{
+                       "background-color": "#232222",
+                          "color": "#fff",
+                   }}>
                 <Typography variant="h4" align="center">
                     {address}
                 </Typography>
@@ -109,8 +170,8 @@ const PropertyDetails = () => {
                 </Typography>
                 <Grid item xs={12} md={6}>
                     <div
-                        className="card">
-                        <div className="card-top">
+                        className="card_details">
+                        <div >
                             <img
                                 style={{ width: '500px', height: '500px' }}
                                 src={data.primary_photo.href}
@@ -122,14 +183,17 @@ const PropertyDetails = () => {
                             Lot Size : {data.description.lot_sqft} (sqft)
                         </Typography>
                         <Typography className="card-bottom" variant="h6">
-                            Property Overview : {data.description.property_overview}
+                            Property Overview : {featuresList}
+                        </Typography>
+                        <Typography className="card-bottom" variant="h6">
+                            Property Features : {amenitiesList}
                         </Typography>
                     </div>
                 </Grid>
                 <Grid container spacing={2}>
 
                     <Grid item xs={12} md={6}>
-                        {photos}
+                        <ImageSlider   images={!PropertyDetails.photos? data.photos:propertyDetail.photos} />
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <Button onClick={() => setViewMore(!viewMore)}>
@@ -139,16 +203,21 @@ const PropertyDetails = () => {
                             propertyFields &&
                             propertyFields.map((field, index) => (
                                 <Box key={index} marginBottom={2}>
-                                    <Typography variant="subtitle1" color="textPrimary">
+                                    <Grid container spacing={2}>
+
+                                        <Grid item xs={12} md={6}>
+                                    <Typography variant="heading" color="white">
                                         {field.label}:
                                     </Typography>
                                     {typeof field.value === 'object' ? (
                                         <pre>{JSON.stringify(field.value, null, 2)}</pre>
                                     ) : (
-                                        <Typography variant="body1" color="textSecondary">
+                                        <Typography variant="body1" color="white">
                                             {field.value}
                                         </Typography>
                                     )}
+                                        </Grid>
+                                    </Grid>
                                 </Box>
                             ))}
                         <Button onClick={openModal}>Calculate My Payment</Button>

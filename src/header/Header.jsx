@@ -55,9 +55,7 @@ const Header = () => {
         setSearchInput(event.target.value);
     };
 
-    const handleSearchIconClick = () => {
-        setShowSearchField(!showSearchField);
-    };
+
 
     const fetchProduct = async (e) => {
         e.preventDefault();
