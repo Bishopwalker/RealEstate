@@ -41,7 +41,7 @@ export const houses = [
   },
   {
     id: 6,
-    price: '$1,200,000',
+    price: '$245,600',
     title: '10832 Northumberland Hwy, Heathsville, VA 22473',
     services: 'We offer construction/commercial dumpster rental for your home or business. We have a variety of trash cans to choose from.',
     linkImg:
@@ -49,7 +49,7 @@ export const houses = [
   },
   {
     id: 7,
-    price: '$1,200,000',
+    price: '$324,900',
     title: '10832 Northumberland Hwy, Heathsville, VA 22473',
     services: 'We offer construction/commercial dumpster rental for your home or business. We have a variety of trash cans to choose from.',
     linkImg:
@@ -57,7 +57,7 @@ export const houses = [
   },
   {
     id: 8,
-    price: '$1,200,000',
+    price: '$450,321',
     title: '10832 Northumberland Hwy, Heathsville, VA 22473',
     services: 'We offer construction/commercial dumpster rental for your home or business. We have a variety of trash cans to choose from.',
     linkImg:

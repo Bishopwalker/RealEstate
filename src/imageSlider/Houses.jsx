@@ -17,36 +17,37 @@ function Service() {
         autoplay: true,
         autoplaySpeed: 10000,
         speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 1,
+        slidesToShow: 4, // Number of slides to show on desktop
+        slidesToScroll: 1, // Number of slides to scroll on desktop
         initialSlide: 0,
         responsive: [
             {
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    infinite: true,
-                    dots: true,
+                    slidesToShow: 2, // Number of slides to show on tablet
+                    slidesToScroll: 1, // Number of slides to scroll on tablet
+                    vertical: false, // Disable vertical orientation
                 },
             },
             {
                 breakpoint: 600,
                 settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    initialSlide: 2,
+                    slidesToShow: 3, // Number of slides to show on mobile
+                    slidesToScroll: 1, // Number of slides to scroll on mobile
+                    vertical: true, // Enable vertical orientation
                 },
             },
             {
                 breakpoint: 480,
                 settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
+                    slidesToShow: 3, // Number of slides to show on smaller mobile
+                    slidesToScroll: 1, // Number of slides to scroll on smaller mobile
+                    vertical: true, // Enable vertical orientation
                 },
             },
         ],
     };
+
 
     return (
         <div className="services">
