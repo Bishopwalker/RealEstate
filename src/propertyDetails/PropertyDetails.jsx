@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Typography from '@mui/material/Typography';
 import { useLocation } from 'react-router-dom';
 import {Box, Button, Grid, Modal, ThemeProvider} from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import MortgageCalculator from "../calculator/PaymentCalculator.jsx";
+import axios from "axios";
+
+
 
 const PropertyDetails = () => {
     const location = useLocation();
@@ -11,6 +14,25 @@ const PropertyDetails = () => {
     const data = property.data.results[0];
     const [viewMore, setViewMore] = React.useState(false);
     const [isOpen, setIsOpen] = React.useState(false);
+    const [propertyDetail, setPropertyDetail] = React.useState(null);
+
+    console.log("data", data)
+
+    const fetchProductDeatils = async ( ) => {
+
+        try {
+            const response = await axios.get(`http://localhost:5000/api/property-detail/${data.property_id}`);
+            console.log(response.data);
+            setPropertyDetail(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+            useEffect(() => {
+                fetchProductDeatils();
+
+            }, [data]);
 
     const propertyFields = [
         { label: 'Branding', value: data.branding },
@@ -38,7 +60,22 @@ const PropertyDetails = () => {
         { label: 'Virtual Tours', value: data.virtual_tours },
     ];
     const photos = data.photos.map((photo, index) => (
-        <img key={index} src={photo.href} style={{ width: '250px', height: '250px' }} alt="property" />
+        <div
+            key={index}
+            className="card">
+            <div className="card-top">
+                <img
+                    style={{ width: '250px', height: '250px' }}
+                    src={photo.href}
+                    alt={photo.tags.label}
+                />
+                <h1>{photo.tags.label}</h1>
+            </div>
+            <div className="card-bottom">
+                <span className="category">{photo.services}</span>
+            </div>
+        </div>
+
     ));
 
     const address =
@@ -59,17 +96,38 @@ const PropertyDetails = () => {
     const closeModal = () => {
         setIsOpen(false);
     };
+    console.log(data)
 
     return (
         <ThemeProvider theme={theme}>
-            <Box>
+                   <Box>
                 <Typography variant="h4" align="center">
                     {address}
                 </Typography>
                 <Typography variant="h5" align="center">
                     Listing Price: ${data.list_price}
                 </Typography>
+                <Grid item xs={12} md={6}>
+                    <div
+                        className="card">
+                        <div className="card-top">
+                            <img
+                                style={{ width: '500px', height: '500px' }}
+                                src={data.primary_photo.href}
+                                alt={data.tags.label}
+                            />
+                            <h1>{data.tags.label}</h1>
+                        </div>
+                        <Typography className="card-bottom" variant="h6">
+                            Lot Size : {data.description.lot_sqft} (sqft)
+                        </Typography>
+                        <Typography className="card-bottom" variant="h6">
+                            Property Overview : {data.description.property_overview}
+                        </Typography>
+                    </div>
+                </Grid>
                 <Grid container spacing={2}>
+
                     <Grid item xs={12} md={6}>
                         {photos}
                     </Grid>

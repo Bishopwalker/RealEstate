@@ -27,9 +27,9 @@ function App() {
                 height: '100vh',
                 }}
         >
-    <Header/>
-            <Routes>
+                <Header/>
 
+            <Routes>
                 <Route path='/' element={<Home/>}/>
                 <Route path='/about' element={<MyStory/>}/>
                 <Route path='/cities' element={<CityList/>}/>

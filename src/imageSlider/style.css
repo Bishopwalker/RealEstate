@@ -1,82 +1,65 @@
-/*.services {*/
-/*  width: 85%;*/
-/*  margin: 0 auto;*/
-/*  margin-top: 50px;*/
-/*  margin-bottom: 50px;*/
-/*}*/
+.services {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 50px;
+}
 
-/*.slick-slide > div {*/
-/*  margin: 0 10px;*/
-/*}*/
-/*.slick-list {*/
-/*  margin: 0 -10px;*/
-/*}*/
+.slick-slide > div {
+  margin: 0 10px;
+}
+.slick-list {
+  margin: 0 -10px;
+}
 
-/*.card {*/
-/*  border: 1px solid #ccc;*/
-/*  background: #2C3E50;*/
-/*  border-radius: 8px;*/
-/*  overflow: hidden;*/
+.card {
+  border: 1px solid #ccc;
+  background: #2C3E50;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 10px;
+  height: 400px;
+  color: #fff;
+  cursor: pointer;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  margin: 20px 10px;
+}
 
-/*  height: 300px;*/
-/*  color: #fff;*/
-/*  cursor: pointer;*/
-/*  font-family: Roboto, Helvetica, Arial, sans-serif;*/
+.card-top h1 {
+  font-size: 0.9rem;
+  margin: 20px;
+}
 
-/*}*/
+.card-top > img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background: black;
+}
 
-/*.card-top h1 {*/
-/*  font-size: 0.9rem;*/
-/*  margin: 20px;*/
-/*}*/
+.card-bottom {
+  margin: 10px 20px;
+}
 
-/*.card-top > img {*/
-/*  width: 100%;*/
-/*  height: 200px;*/
-/*  object-fit: cover;*/
-/*  background: black;*/
-/*}*/
+.category {
+  position: relative;
+}
+.category::before {
+  content: '';
+  background: rgb(255, 61, 61);
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  right: 0;
+  height: 2px;
+}
 
-/*.card-bottom {*/
-/*  margin: 10px 20px;*/
-/*}*/
+.slick-prev {
+  height: 20px;
+  left: 3% !important;
+  z-index: 1;
+}
+.slick-next {
+  right: 3% !important;
+  z-index: 1;
+}
 
-/*.category {*/
-/*  position: relative;*/
-/*}*/
-/*.category::before {*/
-/*  content: '';*/
-/*  background: rgb(255, 61, 61);*/
-/*  position: absolute;*/
-/*  top: calc(100% + 10px);*/
-/*  left: 0;*/
-/*  right: 0;*/
-/*  height: 2px;*/
-/*}*/
-
-/*.slick-prev {*/
-/*  height: 20px;*/
-/*  left: 3% !important;*/
-/*  z-index: 1;*/
-/*}*/
-/*.slick-next {*/
-/*  right: 3% !important;*/
-/*  z-index: 1;*/
-/*}*/
-
-/*.slick-prev:before, .slick-next:before {*/
-/*  font-family: 'slick';*/
-/*  font-size: 20px;*/
-/*  line-height: 1;*/
-/*  color: #fff;*/
-/*  opacity: 0.75;*/
-/*  -webkit-font-smoothing: antialiased;*/
-/*  -moz-osx-font-smoothing: grayscale;*/
-/*}*/
-/*.slider-container {*/
-/*  margin: 0 -10px;*/
-/*}*/
-
-/*.card {*/
-/*  margin: 0 10px;*/
-/*}*/
