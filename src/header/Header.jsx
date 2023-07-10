@@ -46,9 +46,9 @@ const Header = () => {
         { name: 'My Story', url: '/about' },
         { name: 'Properties', url: '/properties' },
         { name: 'Areas Served', url: '/cities' },
-        { name: 'Developments', url: '/developments' },
         { name: 'Reviews', url: '/review' },
-        { name: 'Contact Us', url: '/contact' },
+        { name: 'Community News', url: '/community' },
+        { name: 'Contact', url: '/contact' },
     ];
 
     const handleSearchInputChange = (event) => {

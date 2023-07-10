@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
@@ -6,10 +6,11 @@ import Typography from "@mui/material/Typography";
 import { Box, useTheme, useMediaQuery } from "@mui/material";
 import Button from "@mui/material/Button";
 import './style.css';
-
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 export default function VideoSlider() {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
 
     const settings = {
         dots: true,
@@ -50,16 +51,33 @@ export default function VideoSlider() {
 
     // Paths to your .mov files
     const videos = [
-        { name: '/fishing.mp4', message: 'Fishing' },
+        {
+            name: '/fishing.mp4', message: 'Fishing' },
         { name: '/jetski.mp4', message: 'Jet Skiing' },
         { name: '/mov1.mp4', message: 'Crabbing' },
         { name: '/mov2.mp4', message: 'Kayaking' },
         { name: '/mov3.mp4', message: 'Sailing' },
     ];
+const messages =[
+    {short: 'Find A Fine Home!', long: 'The Northern Necks #1 Real Estate Agent since 1999!'},
+    {short: 'Find A Fine Home!', long: 'Sit Back and Enjoy the Finer Things in Life!'},
+    {short: 'Find A Fine Home!', long: 'How long before you forget about the beltway traffic?'},
+    {short: 'Find A Fine Home!', long: 'You Could be back in DC in 2 hours!'},
+]
+
+    const [currentMessage, setCurrentMessage] = useState(messages[0]);
+    const [currentSlide, setCurrentSlide] = useState(0);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentSlide(prevSlide => (prevSlide + 1) % videos.length);
+        }, 30000);
+        return () => clearInterval(interval);
+    }, []);
+
 
     return (
         <Box style={{ position: "relative" }}>
-            <Slider {...settings}>
+            <Slider {...settings} afterChange={setCurrentSlide}>
                 {videos.map((video, index) => (
                     <div className="sliderCard" key={index}>
                         <video style={{ width: "100%", height: "100%" }} controls>
@@ -71,27 +89,36 @@ export default function VideoSlider() {
             </Slider>
             <div style={{
                 position: "absolute",
-                bottom: "100px",
+                top: "100px",
                 left: "200px",
                 textAlign: "left"
             }}>
                 <Typography variant="h4" style={{
-                    fontSize: isMobile ? "30px" : "40px",
+                    fontSize: isMobile ? "20px" : "30px",
                     color: "white",
+                    fontWeight: "bold",
                 }}>
-                    You Could be back in DC in 2 hours!
+                    {isMobile ? messages[currentSlide].short : messages[currentSlide].long}
                 </Typography>
+            </div>
+            <div style={{
+                position: "absolute",
+                bottom: "100px",
+                right: "100px",
+            }}>
                 <Button
                     onClick={() => console.log("button clicked")}
+                    variant="contained"
                     style={{
                         marginTop: "10px",
-                        fontSize: isMobile ? "16px" : "20px",
-                        backgroundColor: "black",
+                        fontSize: isMobile ? "20px" : "30px",
                         color: "white",
                         padding: isMobile ? "10px 20px" : "15px 30px",
-                        borderRadius: "5px",
+                        borderRadius: "10px",
                     }}>
-                    Find a Fine Home
+                    <Typography variant="h5">
+                        {isMobile ? "Find A Home!" : "Find A Fine Home Today!"} <ShoppingCartIcon/>
+                    </Typography>
                 </Button>
             </div>
         </Box>
