@@ -6,8 +6,8 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Modal from '@mui/material/Modal';
 
-const MortgageCalculator = ({ closeModal }) => {
-    const [price, setPrice] = React.useState('295000');
+const MortgageCalculator = ({ closeModal, homePrice }) => {
+    const [price, setPrice] = React.useState(homePrice);
     const [percentDown, setPercentDown] = React.useState('10');
     const [numYears, setNumYears] = React.useState('30');
     const [interestRate, setInterestRate] = React.useState('3.925');

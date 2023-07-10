@@ -168,6 +168,14 @@ const PropertyDetails = () => {
                 <Typography variant="h5" align="center">
                     Listing Price: ${data.list_price}
                 </Typography>
+                       <Button onClick={openModal}>Calculate My Payment</Button>
+                       <Modal open={isOpen} onClose={closeModal}>
+                           {/* Wrap the contents inside a valid child element */}
+                           <div>
+                               {/* Mortgage calculator component */}
+                               <MortgageCalculator homePrice={data.list_price} closeModal={closeModal} />
+                           </div>
+                       </Modal>
                 <Grid item xs={12} md={6}>
                     <div
                         className="card_details">
@@ -213,30 +221,38 @@ const PropertyDetails = () => {
                             propertyFields.map((field, index) => (
                                 <Box key={index} marginBottom={2}>
                                     <Grid container spacing={2}>
-
-                                        <Grid item xs={12} md={6}>
-                                    <Typography variant="heading" color="white">
-                                        {field.label}:
-                                    </Typography>
-                                    {typeof field.value === 'object' ? (
-                                        <pre>{JSON.stringify(field.value, null, 2)}</pre>
-                                    ) : (
-                                        <Typography variant="body1" color="white">
-                                            {field.value}
-                                        </Typography>
-                                    )}
+                                        <Grid item xs={12} md={4}>
+                                            <Typography variant="h6" color="white">
+                                                {field.label}:
+                                            </Typography>
                                         </Grid>
+                                        {field.value && typeof field.value === 'object' ? (
+                                            Object.keys(field.value).map((key, i) => (
+                                                <Grid container spacing={2} key={i}>
+                                                    <Grid item xs={6} md={4}>
+                                                        <Typography variant="subtitle1" color="white">
+                                                            {key}:
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid item xs={6} md={4}>
+                                                        <Typography variant="body1" color="white">
+                                                            {field.value[key]}
+                                                        </Typography>
+                                                    </Grid>
+                                                </Grid>
+                                            ))
+                                        ) : (
+                                            <Grid item xs={12} md={8}>
+                                                <Typography variant="body1" color="white">
+                                                    {field.value}
+                                                </Typography>
+                                            </Grid>
+                                        )}
                                     </Grid>
                                 </Box>
                             ))}
-                        <Button onClick={openModal}>Calculate My Payment</Button>
-                        <Modal open={isOpen} onClose={closeModal}>
-                            {/* Wrap the contents inside a valid child element */}
-                            <div>
-                                {/* Mortgage calculator component */}
-                                <MortgageCalculator closeModal={closeModal} />
-                            </div>
-                        </Modal>
+
+
                     </Grid>
                 </Grid>
             </Box>
