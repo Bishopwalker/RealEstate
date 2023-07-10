@@ -2,12 +2,12 @@ import React from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-import Typography from "@mui/material/Typography";
+
 import { Box, useTheme, useMediaQuery } from "@mui/material";
 import Button from "@mui/material/Button";
 import '../imageSlider/style.css';
 
-export default function ImageSlider({images,features}) {
+export default function ImageSlider({images }) {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -49,17 +49,7 @@ export default function ImageSlider({images,features}) {
     };
 
 
-    // {images.map((photo, index) => (
-    //     <div className="sliderCard" key={index}>
-    //         <img style={{ width: "100%", height: "100%" }}
-    //              src={photo.href}  alt={photo.tags.label}
-    //         />
-    //         <Typography variant="h6" >
-    //             {photo.tags.label}
-    //             Test words
-    //         </Typography>
-    //     </div>
-    // ))}
+
     return (
         <Box>
             <Slider {...settings}>
@@ -72,7 +62,7 @@ export default function ImageSlider({images,features}) {
                             <img
                                 src={photo.href}  alt={photo.tags.label}
                             />
-                            <h3>{photo.tags.label}</h3>
+                            <h3>Test Words</h3>
 
                         </div>
 

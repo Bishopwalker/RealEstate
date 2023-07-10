@@ -24,8 +24,8 @@ const PropertyDetails = () => {
 
         try {
             const response = await axios.get(`http://localhost:5000/api/property-detail/${data.property_id}`);
-            console.log(response.data);
-            setPropertyDetail(response.data);
+            console.log(response.data.data.property_detail);
+            setPropertyDetail(response.data.data.property_detail);
         } catch (error) {
             console.log(error);
         }
@@ -33,7 +33,7 @@ const PropertyDetails = () => {
 
             useEffect(() => {
                 fetchProductDeatils();
-                console.log("prop", propertyDetail)
+
             }, [data]);
 
     const propertyFields = [
@@ -67,7 +67,7 @@ const PropertyDetails = () => {
            >
             <div >
                 <img
-                    style={{ width: '250px', height: '250px' }}
+                    style={{ width: '100px', height: '100px' }}
                     src={photo.href}
                     alt={photo.tags.label}
                 />
@@ -179,6 +179,15 @@ const PropertyDetails = () => {
                             />
                             <h1>{data.tags.label}</h1>
                         </div>
+                        <div style={{
+                            display:"flex",
+                            flexDirection:"row",
+                            justifyContent:"space-evenly",
+                            flexWrap:"wrap"
+
+                        }}>
+                        {photos}
+                    </div>
                         <Typography className="card-bottom" variant="h6">
                             Lot Size : {data.description.lot_sqft} (sqft)
                         </Typography>
