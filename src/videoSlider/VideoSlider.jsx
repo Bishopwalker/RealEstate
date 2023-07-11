@@ -63,10 +63,10 @@ const messages =[
     {short: 'Find A Fine Home!', long: 'Sit Back and Enjoy the Finer Things in Life!'},
     {short: 'Find A Fine Home!', long: 'How long before you forget about the beltway traffic?'},
     {short: 'Find A Fine Home!', long: 'You Could be back in DC in 2 hours!'},
+    {short: 'Find A Fine Home!', long: 'Stripper, Flouder, and Cobia, oh my!'},
 ]
 
-    const [currentMessage, setCurrentMessage] = useState(messages[0]);
-    const [currentSlide, setCurrentSlide] = useState(0);
+     const [currentSlide, setCurrentSlide] = useState(0);
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentSlide(prevSlide => (prevSlide + 1) % videos.length);
@@ -89,12 +89,12 @@ const messages =[
             </Slider>
             <div style={{
                 position: "absolute",
-                top: "100px",
+                top: "50px",
                 left: "200px",
                 textAlign: "left"
             }}>
                 <Typography variant="h4" style={{
-                    fontSize: isMobile ? "20px" : "30px",
+                    fontSize: isMobile ? "20px" : "33px",
                     color: "white",
                     fontWeight: "bold",
                 }}>

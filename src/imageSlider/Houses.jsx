@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import { Box, useTheme, useMediaQuery } from "@mui/material";
 import "./style.css";
 
 function Service({ houses }) {
@@ -48,35 +48,34 @@ function Service({ houses }) {
         ],
     };
 
+    console.log(houses)
 
     return (
-        <div className="services">
-            <Slider {...settings} className="slider-container">
-                {houses.map((item, index) => (
-                    <div
-                        key={index}
-                        className="card"
-                    >
-                        <div className="card-top">
-                            <img
-                                src={
-                                    // @ts-ignore
-                                    defaultImage[item.title] === item.title
-                                        ? defaultImage.linkDefault
-                                        : item.linkImg
-                                }
-                                alt={item.title}
-                            />
-                            <h1>{item.title}</h1>
-                            <h3>{item.price}</h3>
+        <Box>
+            <Slider {...settings}>
+                {houses.map((house, index) => (
+                    house.data.results.map((result, resultIndex) => (
+                        <div key={resultIndex} className="card">
+                            <div className="card-top">
+                                <img src={result.primary_photo.href} alt="House" />
+                                <h3>{result.location.address.line}, {result.location.address.city}, {result.location.address.state_code} {result.location.address.postal_code}</h3>
+                                <p>{result.branding[0].name}</p>
+                                <p>Baths: {result.description.baths}</p>
+                                <p>Full Baths: {result.description.baths_full}</p>
+                                <p>Beds: {result.description.beds}</p>
+                                <p>Garage: {result.description.garage}</p>
+                                <p>Lot Sqft: {result.description.lot_sqft}</p>
+                                <p>Sqft: {result.description.sqft}</p>
+                                <p>Stories: {result.description.stories}</p>
+                                <p>Type: {result.description.type}</p>
+                                <p>Year Built: {result.description.year_built}</p>
+                                <p>Last Update Date: {result.last_update_date}</p>
+                            </div>
                         </div>
-                        <div className="card-bottom">
-                            <span className="category">{item.services}</span>
-                        </div>
-                    </div>
+                    ))
                 ))}
             </Slider>
-        </div>
+        </Box>
     );
 }
 

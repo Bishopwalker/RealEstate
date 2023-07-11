@@ -1,8 +1,21 @@
 import VideoSlider from "../videoSlider/VideoSlider.jsx";
 import Houses from "../imageSlider/Houses.jsx";
 import {Box} from "@mui/material";
-import { houses } from './houses.ts';
+
+import { useDispatch, useSelector } from 'react-redux';
+import {fetchHouses} from "../redux/agentListingsSlice.js";
+import {useEffect} from "react";
+
 export default function Home() {
+    const dispatch = useDispatch();
+    const houses = useSelector((state) => state.houses);
+    useEffect(() => {
+        const mlsIds = [112844, 113591, 113740, 113741, 113935];
+        dispatch(fetchHouses(mlsIds));
+    }, [dispatch]);
+
+console.log(houses);
+
     return(
         <Box>
             <VideoSlider/>

@@ -59,6 +59,35 @@ app.get('/api/property-by-mls-id/:mlsId', async (req, res) => {
     }
 });
 
+app.post('/api/properties-by-mls-ids', async (req, res) => {
+    const { mlsIds } = req.body;
+
+    const options = {
+        method: 'GET',
+        url: 'https://us-real-estate.p.rapidapi.com/property-by-mls-id',
+        headers: {
+            'X-RapidAPI-Key': '98719ea05bmsh790ff30799ebc39p18a878jsn89341f1405b3',
+            'X-RapidAPI-Host': 'us-real-estate.p.rapidapi.com',
+        },
+    };
+
+    try {
+        const responses = await Promise.all(
+            mlsIds.map(async (mlsId) => {
+                options.params = { mls_id: mlsId };
+                const response = await axios.request(options);
+                return response.data;
+            })
+        );
+
+        res.json(responses);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred' });
+    }
+});
+
+
 
 
 
