@@ -10,6 +10,7 @@ import CityList from "./areas/CityList";
 import Footer from "./footer/Footer";
 import Contact from "./contact/Contact";
 import PropertyDetails from "./propertyDetails/PropertyDetails";
+import Reviews from "./review/Reviews.jsx";
 function App() {
 
 
@@ -24,11 +25,12 @@ function App() {
                 <Header/>
 
             <Routes>
-                <Route  exact path='/' element={<Home  />}/>
+                <Route  exact path='/' element={<Home/>}/>
                 <Route path='/about' element={<MyStory/>}/>
                 <Route path='/cities' element={<CityList/>}/>
                 <Route path='/contact' element={<Contact/>}/>
                 <Route path='/property-details' element={<PropertyDetails/>}/>
+                <Route path='/review' element={<Reviews/>}/>
                 {/* other routes */}
             </Routes>
             <Footer/>
