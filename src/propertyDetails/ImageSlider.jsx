@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 
 import { Box, useTheme, useMediaQuery } from "@mui/material";
 import Button from "@mui/material/Button";
-import '../imageSlider/style.css';
+import '../houseSlider/style.css';
 
 export default function ImageSlider({images }) {
     const theme = useTheme();

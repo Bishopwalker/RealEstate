@@ -1,21 +1,35 @@
 import React, {useEffect} from 'react';
 import Typography from '@mui/material/Typography';
-import { useLocation } from 'react-router-dom';
+import {Navigate, useLocation} from 'react-router-dom';
 import {Box, Button, Grid, Modal, ThemeProvider} from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import MortgageCalculator from "../calculator/PaymentCalculator.jsx";
 import axios from "axios";
-import Houses from "../imageSlider/Houses.jsx";
+import Houses from "../houseSlider/Houses.jsx";
 import ImageSlider from "./ImageSlider.jsx";
 
 
 const PropertyDetails = () => {
     const location = useLocation();
     const property = location.state?.property;
-    const data = property.data.results[0];
+    const data = property && property.data ? property.data.results[0] : null;
+    useEffect(() => {
+        if (data) {
+            fetchProductDeatils().then(r => console.log(r));
+        }
+
+    }, []);
+
     const [viewMore, setViewMore] = React.useState(false);
     const [isOpen, setIsOpen] = React.useState(false);
     const [propertyDetail, setPropertyDetail] = React.useState(null);
+
+    if (!data) {
+        // Handle the case where data is undefined or null
+        // For example, you could return a loading spinner or a message to the user
+        return <div>Loading...</div>;
+    }
+
 
 
     console.log("prop", propertyDetail)
@@ -31,12 +45,10 @@ const PropertyDetails = () => {
         }
     };
 
-            useEffect(() => {
-                fetchProductDeatils();
 
-            }, [data]);
 
-    const propertyFields = [
+    const propertyFields = data ? [
+        { label: 'Branding', value: data.branding },
         { label: 'Branding', value: data.branding },
         { label: 'Community', value: data.community },
         { label: 'Description', value: data.description },
@@ -60,12 +72,14 @@ const PropertyDetails = () => {
         { label: 'Status', value: data.status },
         { label: 'Tags', value: data.tags },
         { label: 'Virtual Tours', value: data.virtual_tours },
-    ];
-    const photos = data.photos.map((photo, index) => (
-        <div
-            key={index}
-           >
-            <div >
+    ] : [];
+
+    const photos = data ? data.photos : [];
+
+    // Now, map over the photos array. If data was undefined, this will just map over an empty array, so no photos will be displayed, but it also won't cause an error.
+    const photoElements = photos.map((photo, index) => (
+        <div key={index}>
+            <div>
                 <img
                     style={{ width: '100px', height: '100px' }}
                     src={photo.href}
@@ -77,7 +91,6 @@ const PropertyDetails = () => {
                 <span className="category">{photo.services}</span>
             </div>
         </div>
-
     ));
 
     const address =
@@ -158,8 +171,9 @@ const PropertyDetails = () => {
     ));
     return (
         <ThemeProvider theme={theme}>
+            {propertyDetail && (
                    <Box sx={{
-                       "background-color": "#232222",
+                       "backgroundColor": "#232222",
                           "color": "#fff",
                    }}>
                 <Typography variant="h4" align="center">
@@ -194,7 +208,7 @@ const PropertyDetails = () => {
                             flexWrap:"wrap"
 
                         }}>
-                        {photos}
+                        {photoElements}
                     </div>
                         <Typography className="card-bottom" variant="h6">
                             Lot Size : {data.description.lot_sqft} (sqft)
@@ -256,7 +270,9 @@ const PropertyDetails = () => {
                     </Grid>
                 </Grid>
             </Box>
+            )}
         </ThemeProvider>
+
     );
-};
+}
 export default PropertyDetails;

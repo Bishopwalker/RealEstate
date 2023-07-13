@@ -4,8 +4,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
-import { Link,Navigate } from 'react-router-dom';
-import SearchIcon from '@mui/icons-material/Search';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import MailIcon from '@mui/icons-material/Mail';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
@@ -14,8 +13,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
-
-import { useEffect, useState } from 'react';
+import NotFound from "../notFound/NotFound.jsx";
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { SearchOutlined } from '@mui/icons-material';
 
@@ -35,12 +34,15 @@ const useStyles = makeStyles({
 
 const Header = () => {
     const classes = useStyles();
+    const navigate = useNavigate();
 
     const [searchInput, setSearchInput] = useState('');
     const [propertyMLS, setPropertyMLS] = useState(null);
     const [property, setProperty] = useState({});
     const [showSearchField, setShowSearchField] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [isOpen, setIsOpen] = React.useState(false);
+    const [showModal, setShowModal] = useState(false); // add this line
 
     const navItems = [
         { name: 'My Story', url: '/about' },
@@ -55,7 +57,23 @@ const Header = () => {
         setSearchInput(event.target.value);
     };
 
+    const openModal = () => {
+        setIsOpen(true);
+    };
 
+    useEffect(() => {
+        if (property.data) {
+            navigate('/property-details', { state: { property: property } });
+        }
+    }, [property, navigate]);
+
+    const closeModal = () => {
+        setShowModal(false); // close NotFoundPage modal
+        setSearchInput(''); // clear search input
+        navigate('/'); // navigate to home page
+    };
+
+    const [loading, setLoading] = useState(false);
 
     const fetchProduct = async (e) => {
         e.preventDefault();
@@ -64,21 +82,37 @@ const Header = () => {
             return;
         }
 
+        setLoading(true); // start loading
+
         try {
             const response = await axios.get(`http://localhost:5000/api/property-by-mls-id/${searchInput}`);
             console.log(response.data);
-            setProperty(response.data);
+            if (response.data) {
+                navigate('/property-details', { state: { property: response.data } });
+            } else {
+                setShowModal(true); // show NotFoundPage modal when property does not exist
+            }
         } catch (error) {
             console.log(error);
+            setShowModal(true); // show NotFoundPage modal when an error occurs
         }
+
+        setLoading(false); // end loading
     };
 
-    if (property.data) {
+
+
+
+
+
+
+    if (!loading && property.data) {
         return <Navigate to="/property-details" state={{ property: property }} />;
     }
 
     return (
         <Box>
+            {showModal && <NotFound closeModal={closeModal} />}
             <AppBar position="sticky" sx={{ backgroundColor: 'black' }}>
                 <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Typography
@@ -105,7 +139,6 @@ const Header = () => {
                     {/* Desktop Menu */}
                     <Box
                         sx={{
-                            display: 'flex',
                             justifyContent: 'space-between',
                             flexGrow: 1,
                             mx: 8,
