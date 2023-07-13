@@ -55,8 +55,10 @@ const Header = () => {
 
     const handleSearchInputChange = (event) => {
         setSearchInput(event.target.value);
-    };
+        console.log(searchInput)
 
+    };
+    console.log(searchInput)
     const closeModal = () => {
         setShowModal(false);
         setSearchInput('');
@@ -66,15 +68,17 @@ const Header = () => {
         e.preventDefault();
 
         if (!searchInput) {
+            console.log('test')
             return;
         }
+
 
         setLoading(true);
 
         try {
             const response = await axios.get(`http://localhost:5000/api/property-by-mls-id/${searchInput}`);
-            if (!response.data.count==null) {
-                console.log(response.data);
+                console.log(response.data.data);
+            if (response.data.data.count !== null) {
                 setProperty(response.data);
             } else {
                 setShowModal(true);
