@@ -208,7 +208,10 @@ const PropertyDetails = () => {
                                 src={data.primary_photo.href}
                                 alt={data.tags.label}
                             />
-                            <h1>{data.tags.label}</h1>
+                            <h1>Description</h1>
+                            <Typography variant="h6" align="center" fontFamily="cursive">
+                            <p> {propertyDetail.prop_common.description} </p>
+                            </Typography>
                         </div>
                         <div style={{
                             display:"flex",
@@ -229,24 +232,24 @@ const PropertyDetails = () => {
                             {featuresList}
                         </Grid>
 
-                        <Grid container spacing={2}>
-                            <Typography className="card-bottom" variant="h6">
+                            <Typography variant={typographyVariant} fontFamily="Cursive" padding="20px" >
                                 Property Features:
                             </Typography>
+                        <Grid container spacing={2}>
                             {amenitiesList}
                         </Grid>
 
                     </div>
                 </Grid>
-                <Grid container spacing={2}>
-
-                    <Grid item xs={12} md={6}>
-                        <ImageSlider   images={!PropertyDetails.photos? data.photos:propertyDetail.photos} />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
                         <Button onClick={() => setViewMore(!viewMore)}>
                             {viewMore ? 'View Less' : 'View More'}
                         </Button>
+                <Grid container spacing={2}>
+
+                    <Grid item xs={12}   >
+                        <ImageSlider propertyDetail={propertyDetail}   images={!PropertyDetails.photos? data.photos:propertyDetail.photos} />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
                         {viewMore &&
                             propertyFields &&
                             propertyFields.map((field, index) => (
@@ -267,7 +270,7 @@ const PropertyDetails = () => {
                                                     </Grid>
                                                     <Grid item xs={6} md={4}>
                                                         <Typography variant="body1" color="white">
-                                                            {field.value[key]}
+                                                            {String(field.value[key])} {/* Convert value to string */}
                                                         </Typography>
                                                     </Grid>
                                                 </Grid>
@@ -275,7 +278,7 @@ const PropertyDetails = () => {
                                         ) : (
                                             <Grid item xs={12} md={8}>
                                                 <Typography variant="body1" color="white">
-                                                    {field.value}
+                                                    {String(field.value)} {/* Convert value to string */}
                                                 </Typography>
                                             </Grid>
                                         )}
