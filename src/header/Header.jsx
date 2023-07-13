@@ -73,7 +73,8 @@ const Header = () => {
 
         try {
             const response = await axios.get(`http://localhost:5000/api/property-by-mls-id/${searchInput}`);
-            if (response.data) {
+            if (!response.data.count==null) {
+                console.log(response.data);
                 setProperty(response.data);
             } else {
                 setShowModal(true);
@@ -89,7 +90,7 @@ const Header = () => {
         if (property.data) {
             navigate('/property-details', { state: { property: property } });
         }
-    }, [property, navigate]);
+    }, [property ]);
 
     return (
         <Box>

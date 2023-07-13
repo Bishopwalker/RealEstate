@@ -6,6 +6,8 @@ import { createTheme } from '@mui/material/styles';
 import MortgageCalculator from "../calculator/PaymentCalculator.jsx";
 import axios from "axios";
 import ImageSlider from "./ImageSlider.jsx";
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchPropertyDetail} from "../redux/propertyDetailSlice.js";
 
 
 const PropertyDetails = () => {
@@ -17,16 +19,20 @@ const PropertyDetails = () => {
 
     const property = location.state?.property;
     const data = property && property.data ? property.data.results[0] : null;
+    const dispatch = useDispatch();
+
+    const propertyDetail = useSelector(state => state.propertyDetail);
+
     useEffect(() => {
         if (data) {
-            fetchProductDeatils().then(r => console.log(r));
+            dispatch(fetchPropertyDetail(data.property_id));
         }
+    }, [data, dispatch]);
 
-    }, []);
 
     const [viewMore, setViewMore] = React.useState(false);
     const [isOpen, setIsOpen] = React.useState(false);
-    const [propertyDetail, setPropertyDetail] = React.useState(null);
+
 
     if (!data) {
         // Handle the case where data is undefined or null
@@ -37,17 +43,6 @@ const PropertyDetails = () => {
 
 
     console.log("prop", propertyDetail)
-
-    const fetchProductDeatils = async ( ) => {
-
-        try {
-            const response = await axios.get(`http://localhost:5000/api/property-detail/${data.property_id}`);
-            console.log(response.data.data.property_detail);
-            setPropertyDetail(response.data.data.property_detail);
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
 
 
@@ -210,7 +205,7 @@ const PropertyDetails = () => {
                             />
                             <h1>Description</h1>
                             <Typography variant="h6" align="center" fontFamily="cursive">
-                            <p> {propertyDetail.prop_common.description} </p>
+                            <p> {propertyDetail.prop_common && propertyDetail.prop_common.description} </p>
                             </Typography>
                         </div>
                         <div style={{

@@ -6,9 +6,12 @@ import "slick-carousel/slick/slick.css";
 import { Box, useTheme, useMediaQuery } from "@mui/material";
 import '../houseSlider/style.css';
 
-export default function ImageSlider({images,propertyDetail }) {
+import { useSelector } from 'react-redux';
+
+export default function ImageSlider({images  }) {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const propertyDetail = useSelector(state => state.propertyDetail);
 
     const settings = {
         dots: true,
@@ -66,7 +69,7 @@ console.log(propertyDetail);
                             <img
                                 src={photo.href}  alt={photo.tags.label}
                             />
-                            <p>{propertyDetail.search_tags[index % propertyDetail.search_tags.length]}</p>
+                            <p>{propertyDetail.search_tags && propertyDetail.search_tags[index % propertyDetail.search_tags.length]}</p>
                             <h3>Description</h3>
 
                         </div>
