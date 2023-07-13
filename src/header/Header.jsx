@@ -17,6 +17,7 @@ import NotFound from "../notFound/NotFound.jsx";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { SearchOutlined } from '@mui/icons-material';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const useStyles = makeStyles({
     button: {
@@ -37,12 +38,11 @@ const Header = () => {
     const navigate = useNavigate();
 
     const [searchInput, setSearchInput] = useState('');
-    const [propertyMLS, setPropertyMLS] = useState(null);
     const [property, setProperty] = useState({});
-    const [showSearchField, setShowSearchField] = useState(false);
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [isOpen, setIsOpen] = React.useState(false);
-    const [showModal, setShowModal] = useState(false); // add this line
+    const [showModal, setShowModal] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Added this line
+
 
     const navItems = [
         { name: 'My Story', url: '/about' },
@@ -57,23 +57,10 @@ const Header = () => {
         setSearchInput(event.target.value);
     };
 
-    const openModal = () => {
-        setIsOpen(true);
-    };
-
-    useEffect(() => {
-        if (property.data) {
-            navigate('/property-details', { state: { property: property } });
-        }
-    }, [property, navigate]);
-
     const closeModal = () => {
-        setShowModal(false); // close NotFoundPage modal
-        setSearchInput(''); // clear search input
-        navigate('/'); // navigate to home page
+        setShowModal(false);
+        setSearchInput('');
     };
-
-    const [loading, setLoading] = useState(false);
 
     const fetchProduct = async (e) => {
         e.preventDefault();
@@ -82,33 +69,27 @@ const Header = () => {
             return;
         }
 
-        setLoading(true); // start loading
+        setLoading(true);
 
         try {
             const response = await axios.get(`http://localhost:5000/api/property-by-mls-id/${searchInput}`);
-            console.log(response.data);
             if (response.data) {
-                navigate('/property-details', { state: { property: response.data } });
+                setProperty(response.data);
             } else {
-                setShowModal(true); // show NotFoundPage modal when property does not exist
+                setShowModal(true);
             }
         } catch (error) {
-            console.log(error);
-            setShowModal(true); // show NotFoundPage modal when an error occurs
+            setShowModal(true);
         }
 
-        setLoading(false); // end loading
+        setLoading(false);
     };
 
-
-
-
-
-
-
-    if (!loading && property.data) {
-        return <Navigate to="/property-details" state={{ property: property }} />;
-    }
+    useEffect(() => {
+        if (property.data) {
+            navigate('/property-details', { state: { property: property } });
+        }
+    }, [property, navigate]);
 
     return (
         <Box>
@@ -125,7 +106,6 @@ const Header = () => {
                         </Link>
                     </Typography>
 
-                    {/* Mobile Menu */}
                     <IconButton
                         edge="start"
                         color="inherit"
@@ -136,7 +116,6 @@ const Header = () => {
                         <MenuIcon />
                     </IconButton>
 
-                    {/* Desktop Menu */}
                     <Box
                         sx={{
                             justifyContent: 'space-between',
@@ -174,11 +153,9 @@ const Header = () => {
                             }}
                         />
                     </form>
-
                 </Toolbar>
             </AppBar>
 
-            {/* Mobile Drawer */}
             <Drawer
                 anchor="left"
                 open={mobileMenuOpen}
@@ -189,7 +166,6 @@ const Header = () => {
                         {navItems.map((item, index) => (
                             <ListItem
                                 key={index}
-
                                 component={Link}
                                 to={item.url}
                                 className={classes.button}
@@ -200,8 +176,25 @@ const Header = () => {
                     </List>
                 </Box>
             </Drawer>
+
+            {loading && (
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '100vh',
+                    }}
+                >
+                    <CircularProgress />
+                    <Typography variant="h6" component="div" sx={{ ml: 2 }}>
+                        Loading property data...
+                    </Typography>
+                </Box>
+            )}
         </Box>
     );
 };
 
 export default Header;
+

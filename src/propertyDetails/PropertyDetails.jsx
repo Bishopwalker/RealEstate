@@ -1,16 +1,20 @@
 import React, {useEffect} from 'react';
 import Typography from '@mui/material/Typography';
 import {Navigate, useLocation} from 'react-router-dom';
-import {Box, Button, Grid, Modal, ThemeProvider} from '@mui/material';
+import {Box, Button, Grid, Modal, ThemeProvider, useMediaQuery, useTheme} from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import MortgageCalculator from "../calculator/PaymentCalculator.jsx";
 import axios from "axios";
-import Houses from "../houseSlider/Houses.jsx";
 import ImageSlider from "./ImageSlider.jsx";
 
 
 const PropertyDetails = () => {
     const location = useLocation();
+    const themeInfo = useTheme();
+    const isTabletOrBigger = useMediaQuery(themeInfo.breakpoints.up("md"));
+
+    const typographyVariant = isTabletOrBigger ? "h4" : "h6";
+
     const property = location.state?.property;
     const data = property && property.data ? property.data.results[0] : null;
     useEffect(() => {
@@ -146,29 +150,34 @@ const PropertyDetails = () => {
         'medicalcare',
         'shopping',
     ];
-    const amenitiesList = Object.values(amenities).map((key, index) => (
-        <div key={index}>
-            <Typography variant="heading" align="center">
-                {key}
-            </Typography>
-
-            <Typography variant="subtitle1" align="center">
-                {features[key]}
-            </Typography>
-        </div>
-    ));
-
     const featuresList = Object.keys(features).map((key, index) => (
-        <div key={index}>
-            <Typography variant="h6" align="center">
-                {key + ':'}
-            </Typography>
+        <Grid item xs={12} sm={6} md={4} key={index}>
+            <div>
+                <Typography variant="h6" align="center" style={{ textDecoration: 'underline' }}>
+                    {key + ':'}
+                </Typography>
 
-            <Typography variant="subHeading" align="center">
-                { features[key]==null?'N/A':features[key]}
-            </Typography>
-        </div>
+                <Typography variant="subHeading" align="center">
+                    {features[key] == null ? 'N/A' : features[key]}
+                </Typography>
+            </div>
+        </Grid>
     ));
+
+    const amenitiesList = Object.values(amenities).map((key, index) => (
+        <Grid item xs={12} sm={6} md={4} key={index}>
+            <div>
+                <Typography variant="h6" align="center" style={{ textDecoration: 'underline' }}>
+                    {key}
+                </Typography>
+
+                <Typography variant="subHeading" align="center">
+                    {features[key]}
+                </Typography>
+            </div>
+        </Grid>
+    ));
+
     return (
         <ThemeProvider theme={theme}>
             {propertyDetail && (
@@ -213,12 +222,20 @@ const PropertyDetails = () => {
                         <Typography className="card-bottom" variant="h6">
                             Lot Size : {data.description.lot_sqft} (sqft)
                         </Typography>
-                        <Typography className="card-bottom" variant="h6">
-                            Property Overview : {featuresList}
-                        </Typography>
-                        <Typography className="card-bottom" variant="h6">
-                            Property Features : {amenitiesList}
-                        </Typography>
+                            <Typography  variant={typographyVariant} fontFamily="Cursive" padding="10px" className="card-bottom"   >
+                                About this Property :
+                            </Typography>
+                        <Grid container spacing={2}>
+                            {featuresList}
+                        </Grid>
+
+                        <Grid container spacing={2}>
+                            <Typography className="card-bottom" variant="h6">
+                                Property Features:
+                            </Typography>
+                            {amenitiesList}
+                        </Grid>
+
                     </div>
                 </Grid>
                 <Grid container spacing={2}>
