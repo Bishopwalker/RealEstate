@@ -5,7 +5,7 @@ import axios from 'axios';
 // Async action to fetch property detail data
 export const fetchPropertyDetail = createAsyncThunk('propertyDetail/fetchPropertyDetail', async (propertyId) => {
     const response = await axios.get(`http://localhost:5000/api/property-detail/${propertyId}`);
-   console.log(response.data.data.property_detail);
+
     return response.data.data.property_detail;
 });
 

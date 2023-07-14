@@ -48,7 +48,7 @@ function Service({ houses }) {
         ],
     };
 
-    console.log(houses)
+
 
     return (
         <Box>

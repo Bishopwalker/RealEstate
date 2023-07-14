@@ -35,16 +35,18 @@ app.get('/api/property-detail/:propertyId', async (req, res) => {
 });
 
 //Get nearby areas for include_nearby_areas_slug_id parameter in /for-sale endpoint. Get by (area_type="city" & city & state_code) or by (area_type="neighborhood" & city & state_code & neighborhood) or by (area_type="postal_c...
-app.get('/api/nearby-areas', async (req, res) => {
-    const { areaType, city, stateCode } = req.query;
+app.get('/api/for-sale', async (req, res) => {
+    const { stateCode, city, sort, offset, limit } = req.query;
 
     const options = {
         method: 'GET',
-        url: 'https://us-real-estate.p.rapidapi.com/location/for-sale-nearby-areas',
+        url: 'https://us-real-estate.p.rapidapi.com/v3/for-sale',
         params: {
-            area_type: areaType,
+            state_code: stateCode,
             city,
-            state_code: stateCode
+            sort,
+            offset,
+            limit
         },
         headers: {
             'X-RapidAPI-Key': RAPIDAPI_KEY,
