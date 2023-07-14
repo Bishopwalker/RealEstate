@@ -1,13 +1,14 @@
+require('dotenv').config();
+const {RAPIDAPI_KEY, RAPIDAPI_HOST} = process.env;
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
-
 const app = express();
 const port = 5000;
 
 app.use(cors());
 app.use(express.json());
-
+console.log(process.env.RAPIDAPI_KEY);
 app.get('/api/property-detail/:propertyId', async (req, res) => {
     const { propertyId } = req.params;
 
@@ -18,9 +19,37 @@ app.get('/api/property-detail/:propertyId', async (req, res) => {
             property_id: propertyId,
         },
         headers: {
-            'X-RapidAPI-Key': '98719ea05bmsh790ff30799ebc39p18a878jsn89341f1405b3',
-            'X-RapidAPI-Host': 'us-real-estate.p.rapidapi.com',
+            'X-RapidAPI-Key': RAPIDAPI_KEY,
+            'X-RapidAPI-Host': RAPIDAPI_HOST,
         },
+    };
+
+    try {
+        const response = await axios.request(options);
+        console.log(response.data);
+        res.json(response.data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred' });
+    }
+});
+
+//Get nearby areas for include_nearby_areas_slug_id parameter in /for-sale endpoint. Get by (area_type="city" & city & state_code) or by (area_type="neighborhood" & city & state_code & neighborhood) or by (area_type="postal_c...
+app.get('/api/nearby-areas', async (req, res) => {
+    const { areaType, city, stateCode } = req.query;
+
+    const options = {
+        method: 'GET',
+        url: 'https://us-real-estate.p.rapidapi.com/location/for-sale-nearby-areas',
+        params: {
+            area_type: areaType,
+            city,
+            state_code: stateCode
+        },
+        headers: {
+            'X-RapidAPI-Key': RAPIDAPI_KEY,
+            'X-RapidAPI-Host': RAPIDAPI_HOST
+        }
     };
 
     try {
@@ -36,7 +65,7 @@ app.get('/api/property-detail/:propertyId', async (req, res) => {
 
 app.get('/api/property-by-mls-id/:mlsId', async (req, res) => {
     const { mlsId } = req.params;
-
+console.log(RAPIDAPI_KEY)
     const options = {
         method: 'GET',
         url: 'https://us-real-estate.p.rapidapi.com/property-by-mls-id',
@@ -44,8 +73,8 @@ app.get('/api/property-by-mls-id/:mlsId', async (req, res) => {
             mls_id: mlsId,
         },
         headers: {
-            'X-RapidAPI-Key': '98719ea05bmsh790ff30799ebc39p18a878jsn89341f1405b3',
-            'X-RapidAPI-Host': 'us-real-estate.p.rapidapi.com',
+            'X-RapidAPI-Key': RAPIDAPI_KEY,
+            'X-RapidAPI-Host': RAPIDAPI_HOST,
         },
     };
 
@@ -54,7 +83,8 @@ app.get('/api/property-by-mls-id/:mlsId', async (req, res) => {
         console.log(response.data);
         res.json(response.data);
     } catch (error) {
-        console.error(error);
+      //  console.error(error);
+        console.log(RAPIDAPI_KEY)
         res.status(500).json({ error: 'An error occurred' });
     }
 });
@@ -66,8 +96,8 @@ app.post('/api/properties-by-mls-ids', async (req, res) => {
         method: 'GET',
         url: 'https://us-real-estate.p.rapidapi.com/property-by-mls-id',
         headers: {
-            'X-RapidAPI-Key': '98719ea05bmsh790ff30799ebc39p18a878jsn89341f1405b3',
-            'X-RapidAPI-Host': 'us-real-estate.p.rapidapi.com',
+            'X-RapidAPI-Key': RAPIDAPI_KEY,
+            'X-RapidAPI-Host': RAPIDAPI_HOST,
         },
     };
 

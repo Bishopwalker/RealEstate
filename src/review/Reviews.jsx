@@ -5,7 +5,7 @@ const Reviews = () => {
 
     return (
         <Box sx={{
-            height:"200px",
+            minHeight:"400px",
             backgroundColor:"black",
             color:"white",
             fontSize:"20px",
