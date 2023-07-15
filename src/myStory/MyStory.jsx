@@ -1,7 +1,17 @@
 import Typography from '@mui/material/Typography';
 import {Box} from "@mui/material";
+import {useEffect, useState} from "react";
 
 const MyStory = () => {
+    const [firstLoad, setFirstLoad] = useState(true);
+
+    useEffect(() => {
+        if (firstLoad) {
+            window.scrollTo(0, 0);
+            setFirstLoad(false);
+        }
+    }, [firstLoad]);
+
     const paragraphs = [
         "In 1986, I was looking for a Weekend Waterfront Get-a-Way for me and my family. I owned boats for years and realized our 30ft Cruiser was a Hole in the Water I threw money into",
         "I needed a Home on the Water. I knew I wanted a place within 2 hours drive of the DC Beltway and somewhere near the Chesapeake Bay off of the Potomac River. We discovered an old 1900's Farmhouse on the Yeocomico River near a great little town called Callao. We came every weekend and our Kids aged 3 to 12 loved it as well.",

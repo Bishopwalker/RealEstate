@@ -49,7 +49,7 @@ const Header = () => {
         { name: 'Properties', url: '/properties' },
         { name: 'Areas Served', url: '/cities' },
         { name: 'Reviews', url: '/review' },
-        { name: 'Community News', url: '/community' },
+        { name: 'Community Connection', url: '/community' },
         { name: 'Contact', url: '/contact' },
     ];
 
@@ -98,8 +98,8 @@ const Header = () => {
 
     return (
         <Box>
-            {showModal && <NotFound closeModal={closeModal} />}
             <AppBar position="sticky" sx={{ backgroundColor: 'black' }}>
+            {showModal && <NotFound closeModal={closeModal} />}
                 <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Typography
                         variant="h4"

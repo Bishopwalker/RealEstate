@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -7,6 +7,9 @@ import Grid from '@mui/material/Grid';
 import Modal from '@mui/material/Modal';
 
 const MortgageCalculator = ({ closeModal, homePrice }) => {
+
+
+
     const [price, setPrice] = React.useState(homePrice);
     const [percentDown, setPercentDown] = React.useState('10');
     const [numYears, setNumYears] = React.useState('30');

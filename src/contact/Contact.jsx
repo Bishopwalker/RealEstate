@@ -1,6 +1,17 @@
 import { Box, Typography, Grid, TextField } from '@mui/material';
+import {useEffect, useState} from "react";
 
 const ContactMe = () => {
+    const [firstLoad, setFirstLoad] = useState(true);
+
+    useEffect(() => {
+        if (firstLoad) {
+            window.scrollTo(0, 0);
+            setFirstLoad(false);
+        }
+    }, [firstLoad]);
+
+
     return (
         <Box sx={{ py: 8 }}>
             <Grid container justifyContent="center" alignItems="center" spacing={3}>
