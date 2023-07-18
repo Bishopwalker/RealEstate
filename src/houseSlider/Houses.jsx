@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 //@ts-ignore
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Box, useTheme, useMediaQuery } from "@mui/material";
+import {Box} from "@mui/material";
 import "./style.css";
 
 function Service({ houses }) {
-    const [defaultImage, setDefaultImage] = useState({
-        linkDefault: "",
-    });
+
 
     const settings = {
         dots: true,
@@ -53,30 +51,37 @@ function Service({ houses }) {
     return (
         <Box>
             <Slider {...settings}>
-                {houses.map((house, index) => (
-                    house.data.results.map((result, resultIndex) => (
-                        <div key={resultIndex} className="card">
-                            <div className="card-top">
-                                <img src={result.primary_photo.href} alt="House" />
-                                <h3>{result.location.address.line}, {result.location.address.city}, {result.location.address.state_code} {result.location.address.postal_code}</h3>
-                                <p>{result.branding[0].name}</p>
-                                <p>Baths: {result.description.baths}</p>
-                                <p>Full Baths: {result.description.baths_full}</p>
-                                <p>Beds: {result.description.beds}</p>
-                                <p>Garage: {result.description.garage}</p>
-                                <p>Lot Sqft: {result.description.lot_sqft}</p>
-                                <p>Sqft: {result.description.sqft}</p>
-                                <p>Stories: {result.description.stories}</p>
-                                <p>Type: {result.description.type}</p>
-                                <p>Year Built: {result.description.year_built}</p>
-                                <p>Last Update Date: {result.last_update_date}</p>
-                            </div>
+                {houses?.data?.results?.map((result, resultIndex) => (
+                    <div key={resultIndex} className="card">
+                        <div className="card-top">
+                            <img src={result.primary_photo.href} alt="House" />
+                            <h3>{result.location.address.line}, {result.location.address.city}, {result.location.address.state_code} {result.location.address.postal_code}</h3>
+                            <p>{result.branding[0].name}</p>
+                            <p>Baths: {result.description.baths}</p>
+                            <p>Full Baths: {result.description.baths_full}</p>
+                            <p>Beds: {result.description.beds}</p>
+                            <p>Garage: {result.description.garage}</p>
+                            <p>Lot Sqft: {result.description.lot_sqft}</p>
+                            <p>Sqft: {result.description.sqft}</p>
+                            <p>Stories: {result.description.stories}</p>
+                            <p>Type: {result.description.type}</p>
+                            <p>Year Built: {result.description.year_built}</p>
+                            <p>Last Update Date: {result.last_update_date}</p>
                         </div>
-                    ))
+                    </div>
                 ))}
             </Slider>
         </Box>
     );
+
 }
 
+
+Service.defaultProps = {
+    houses: {
+        data: {
+            results: [],
+        },
+    },
+};
 export default Service;
