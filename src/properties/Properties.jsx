@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchHouses } from "../redux/fetchHousesSlice.js";
+import Typography from "@mui/material/Typography";
 
 function Service() {
     const dispatch = useDispatch()
@@ -46,7 +47,9 @@ function Service() {
     });
 
     const houses = useSelector((state) => state && state.searchHome && state.searchHome.houses);
-    const cities = ['Lottsburg', 'Callao', 'Burgaw', 'Warsaw', 'Reedville'];
+    const cities = ["Heathsville",'Lottsburg', 'Callao', 'Burgaw', 'Warsaw', 'Reedville',
+        "Irvington", "Kilmarnock", "White Stone", "Tappahannock", "Urbanna",
+        "Hague", "Colonial Beach", "King George"]
     const limits = [10, 20, 30, 40, 50];
     const propertyTypes = ['multi_family', 'single_family', 'mobile', 'land', 'farm'];
     const daysOnRealtorOptions = ['today', '7', '14', '21', '30'];
@@ -98,12 +101,8 @@ function Service() {
     };
 
     const handleParamChange = (paramName) => (event) => {
-        // Convert paramName from camelCase to snake_case
-        const snakeCaseParamName = paramName.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
-
-        setParams(prevParams => ({ ...prevParams, [snakeCaseParamName]: event.target.value }));
+        setParams(prevParams => ({ ...prevParams, [paramName]: event.target.value }));
     };
-
     const handleMultiSelectChange = (paramName) => (event) => {
         setParams(prevParams => ({ ...prevParams, [paramName]: event.target.value }));
     };
@@ -200,7 +199,7 @@ function Service() {
                         />
                     </FormControl>
 
-                    <FormControl>
+                    <FormControl style={{minWidth:150}} >
                         <InputLabel id="property-type-label">Property Type</InputLabel>
                         <Select
                             labelId="property-type-label"
@@ -340,7 +339,7 @@ function Service() {
                                     labelId="expand-search-radius-label"
                                     id="expand-search-radius-select"
                                     value={params.expand_search_radius}
-                                    label="Expand Search Radius"
+                                    label="Expand Search Radius "
                                     onChange={handleParamChange('expand_search_radius')}
                                 >
                                     {expandSearchRadiusOptions.map((radius, index) => (
@@ -412,11 +411,16 @@ function Service() {
                                     ))}
                                 </Select>
                             </FormControl>
+                            <Typography variant="body" gutterBottom>
+                                {"*Search Radius in miles"}
+                            </Typography>
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-
+<Typography variant="h6" gutterBottom>
+                {houses && houses.length > 0 ? `Results: ${houses.length} houses found` : "No Houses Found"}
+            </Typography>
             <Slider {...settings}>
                 {houses && houses.map((house, index) => (
                     <div key={index} className="card">

@@ -5,8 +5,8 @@ const initialState = {
     params: {
         city: '',
         limit: 0,
-        price_min: '',
-        price_max: '',
+        price_min: 0,
+        price_max: 0,
         beds_min: '',
         beds_max: '',
         baths_min: '',

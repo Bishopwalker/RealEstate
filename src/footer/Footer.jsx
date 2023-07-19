@@ -67,9 +67,9 @@ const Footer = () => {
 
                             <Typography onClick={openModal}  variant="body1" textAlign="center">Privacy Policy</Typography>
                             <Modal open={isOpen} onClose={()=>closeModal()}>
-
+                                        <div>
                                         <PrivacyPolicy closeModal={closeModal}/>
-
+                                        </div>
                             </Modal>
 
                     </Grid>
