@@ -22,7 +22,7 @@ function Service() {
 
     const [params, setParams] = useState({
         city: 'Lottsburg',
-        limit: 40,
+        limit: 50,
         price_min: '',
         price_max: '',
         beds_min: '',
@@ -30,6 +30,8 @@ function Service() {
         baths_min: '',
         baths_max: '',
         property_type: [],
+        community_ammenities: [],
+        lot_views: [],
         new_construction: false,
         hide_pending_contingent: false,
         has_virtual_tours: false,
@@ -47,16 +49,34 @@ function Service() {
     });
 
     const houses = useSelector((state) => state && state.searchHome && state.searchHome.houses);
-    const cities = ["Heathsville",'Lottsburg', 'Callao', 'Burgaw', 'Warsaw', 'Reedville',
-        "Irvington", "Kilmarnock", "White Stone", "Tappahannock", "Urbanna",
-        "Hague", "Colonial Beach", "King George"]
-    const limits = [10, 20, 30, 40, 50];
+    const cities = [
+        "Burgaw",
+        "Callao",
+        "Colonial Beach",
+        "Hague",
+        "Heathsville",
+        "Irvington",
+        "King George",
+        "Kilmarnock",
+        "Lottsburg",
+        "Reedville",
+        "Tappahannock",
+        "Urbanna",
+        "Warsaw",
+        "White Stone"
+    ]
+
+    const limits = [10, 25, 50, 100, 150,200];
     const propertyTypes = ['multi_family', 'single_family', 'mobile', 'land', 'farm'];
     const daysOnRealtorOptions = ['today', '7', '14', '21', '30'];
     const expandSearchRadiusOptions = ['1', '5', '10', '25', '50'];
     const homeSizeMaxOptions = ['1000', '1250', '1500', '1750', '2000', '2250', '2500', '2750', '3000', '3250', '3500', '3750', '5000', '7500', '10000'];
     const homeSizeMinOptions = ['1000', '1250', '1500', '1750', '2000', '2250', '2500', '2750', '3000', '3250', '3500', '3750', '5000', '7500', '10000'];
     const lotSizeOptions = ['2000', '300', '4000', '5000', '7500', '10890', '21780', '43560', '87120', '217800', '435600', '653400', '871200'];
+    const lotViewOptions = ['waterfront','cul_de_sac','corner_lot',
+        'golf_course_lot_or_frontage','hill_or_mountain_view','ocean_water','lake_view','river_view']
+    const communityAmmenitiesOptions = ['community_swimming_pool','community_spa_or_hot_tub', 'community_golf','community_security_features',
+    'community_boat_facilities','tennis_court','community_clubhouse','senior_community' ];
 
     useEffect(() => {
         console.log(params)
@@ -180,7 +200,9 @@ function Service() {
                             onChange={handleParamChange('beds_max')}
                         />
                     </FormControl>
-
+                    <Grid item xs={12}>
+                        <Grid container spacing={2}>
+                            <Grid item  >
                     <FormControl>
                         <TextField
                             id="baths-min"
@@ -214,7 +236,25 @@ function Service() {
                             ))}
                         </Select>
                     </FormControl>
+                                <FormControl style={{minWidth:150}} >
+                                    <InputLabel id="lot-views-label">Lot Views</InputLabel>
+                                    <Select
+                                        labelId="lot-views-label"
+                                        id="lot-views-select"
+                                        value={params.lot_views}
+                                        multiple
+                                        label="Lot Views"
+                                        onChange={handleMultiSelectChange('lot_views')}
+                                    >
+                                        {lotViewOptions.map((type, index) => (
+                                            <MenuItem key={index} value={type}>{type}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                        </Grid>
 
+                    </Grid>
                     <FormControlLabel
                         control={
                             <Checkbox
@@ -238,6 +278,7 @@ function Service() {
                         }
                         label="Hide Pending Contingent"
                     />
+
 
                     <FormControlLabel
                         control={
@@ -411,6 +452,21 @@ function Service() {
                                     ))}
                                 </Select>
                             </FormControl>
+                            <FormControl style={{minWidth:150}} >
+                                <InputLabel id="community-ammenities-label">Community Ammenities</InputLabel>
+                                <Select
+                                    labelId="community-ammenities-label"
+                                    id="community-ammenities-select"
+                                    value={params.community_ammenities}
+                                    multiple
+                                    label="Lot Views"
+                                    onChange={handleMultiSelectChange('community_ammenities')}
+                                >
+                                    {communityAmmenitiesOptions.map((type, index) => (
+                                        <MenuItem key={index} value={type}>{type}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
                             <Typography variant="body" gutterBottom>
                                 {"*Search Radius in miles"}
                             </Typography>
@@ -421,7 +477,8 @@ function Service() {
 <Typography variant="h6" gutterBottom>
                 {houses && houses.length > 0 ? `Results: ${houses.length} houses found` : "No Houses Found"}
             </Typography>
-            <Slider {...settings}>
+
+                <Slider {...settings}>
                 {houses && houses.map((house, index) => (
                     <div key={index} className="card">
                         <div className="card-top">
@@ -444,6 +501,7 @@ function Service() {
                     </div>
                 ))}
             </Slider>
+
         </Box>
     );
 }

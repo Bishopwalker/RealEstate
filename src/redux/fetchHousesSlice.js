@@ -12,6 +12,8 @@ const initialState = {
         baths_min: '',
         baths_max: '',
         property_type: '',
+        community_ammenities: '',
+        lot_views: '',
         new_construction: false,
         hide_pending_contingent: false,
         has_virtual_tours: false,
