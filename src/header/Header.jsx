@@ -55,10 +55,10 @@ const Header = () => {
 
     const handleSearchInputChange = (event) => {
         setSearchInput(event.target.value);
-        console.log(searchInput)
+      //  console.log(searchInput)
 
     };
-    console.log(searchInput)
+    //console.log(searchInput)
     const closeModal = () => {
         setShowModal(false);
         setSearchInput('');
@@ -68,7 +68,7 @@ const Header = () => {
         e.preventDefault();
 
         if (!searchInput) {
-            console.log('test')
+        //    console.log('test')
             return;
         }
 

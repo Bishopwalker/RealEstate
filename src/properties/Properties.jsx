@@ -11,16 +11,19 @@ import {
     TextField,
     FormControlLabel,
     Checkbox,
-    Grid
+    Grid,
+    Button
 } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchHouses } from "../redux/fetchHousesSlice.js";
 import Typography from "@mui/material/Typography";
+import {useNavigate} from "react-router-dom";
 
 function Service() {
     const dispatch = useDispatch()
+    const navigate = useNavigate();
 
-    const [params, setParams] = useState({
+    const initialParams = {
         city: 'Lottsburg',
         limit: 50,
         price_min: '',
@@ -46,7 +49,9 @@ function Service() {
         home_size_min: '',
         lot_size_min: '',
         lot_size_max: ''
-    });
+    };
+
+    const [params, setParams] = useState( initialParams );
 
     const houses = useSelector((state) => state && state.searchHome && state.searchHome.houses);
     const cities = [
@@ -119,6 +124,9 @@ function Service() {
             },
         ],
     };
+    const resetParams = () => {
+        setParams(initialParams);
+    };
 
     const handleParamChange = (paramName) => (event) => {
         setParams(prevParams => ({ ...prevParams, [paramName]: event.target.value }));
@@ -134,7 +142,10 @@ function Service() {
     return (
         <Box minHeight='300px' padding="20px" margin="auto" >
             <Grid container spacing={3}>
+
                 <Grid item xs={12}>
+
+
                     <FormControl>
                         <InputLabel id="city-label">City</InputLabel>
                         <Select
@@ -470,9 +481,13 @@ function Service() {
                             <Typography variant="body" gutterBottom>
                                 {"*Search Radius in miles"}
                             </Typography>
+
                         </Grid>
                     </Grid>
                 </Grid>
+                <Button variant="contained" color="primary" onClick={resetParams}>
+                    Reset
+                </Button>
             </Grid>
 <Typography variant="h6" gutterBottom>
                 {houses && houses.length > 0 ? `Results: ${houses.length} houses found` : "No Houses Found"}
@@ -480,7 +495,7 @@ function Service() {
 
                 <Slider {...settings}>
                 {houses && houses.map((house, index) => (
-                    <div key={index} className="card">
+                    <div key={index} className="card" onClick={()=> navigate('/house-details', { state: { detail: house } })}>
                         <div className="card-top">
                             <img src={house.primary_photo && house.primary_photo.href} alt="House" />
                             <h2>{parseInt(house.list_price) < 100000 ? "Only $" + house.list_price : "$" + house.list_price}</h2>

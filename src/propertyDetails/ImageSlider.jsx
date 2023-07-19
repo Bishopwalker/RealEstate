@@ -8,7 +8,7 @@ import '../houseSlider/style.css';
 
 import { useSelector } from 'react-redux';
 
-export default function ImageSlider({images  }) {
+export default function ImageSlider({  }) {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const propertyDetail = useSelector(state => state.propertyDetail);
@@ -59,7 +59,7 @@ console.log(propertyDetail);
 
         }} >
             <Slider {...settings} >
-                {images.map((photo, index) => (
+                {propertyDetail.photos.map((photo, index) => (
                     <div
                         key={index}
                         className="card"

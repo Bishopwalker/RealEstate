@@ -11,6 +11,7 @@ import {fetchPropertyDetail} from "../redux/propertyDetailSlice.js";
 
 
 const PropertyDetails = () => {
+
     const location = useLocation();
     const themeInfo = useTheme();
     const isTabletOrBigger = useMediaQuery(themeInfo.breakpoints.up("md"));
@@ -18,6 +19,10 @@ const PropertyDetails = () => {
     const typographyVariant = isTabletOrBigger ? "h4" : "h6";
 
     const property = location.state?.property;
+
+
+    console.log(property)
+
     const data = property && property.data ? property.data.results[0] : null;
     const dispatch = useDispatch();
 
@@ -40,9 +45,9 @@ const PropertyDetails = () => {
         return <div>Loading...</div>;
     }
 
-
-
     console.log("prop", propertyDetail)
+
+
 
 
 
@@ -242,7 +247,7 @@ const PropertyDetails = () => {
                 <Grid container spacing={2}>
 
                     <Grid item xs={12}   >
-                        <ImageSlider propertyDetail={propertyDetail}   images={!PropertyDetails.photos? data.photos:propertyDetail.photos} />
+                        <ImageSlider propertyDetail={propertyDetail}    />
                     </Grid>
                     <Grid item xs={12} md={6}>
                         {viewMore &&

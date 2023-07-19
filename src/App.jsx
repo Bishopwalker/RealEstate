@@ -12,6 +12,7 @@ import Contact from "./contact/Contact";
 import PropertyDetails from "./propertyDetails/PropertyDetails";
 import Reviews from "./review/Reviews.jsx";
 import Properties from "./properties/Properties.jsx";
+import HouseDetails from "./properties/HouseDetails.jsx";
 function App() {
 
 
@@ -32,6 +33,7 @@ function App() {
                 <Route path='/contact' element={<Contact/>}/>
                 <Route path='/property-details' element={<PropertyDetails/>}/>
                 <Route path='/review' element={<Reviews/>}/>
+                <Route path='house-details' element={<HouseDetails/>}/>
                 <Route path='/properties' element={<Properties/>} />
                 <Route path='*' element={<h1>Not Found</h1>} />
                 {/* other routes */}
