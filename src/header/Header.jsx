@@ -49,7 +49,7 @@ const Header = () => {
         { name: 'Properties', url: '/properties' },
         { name: 'Areas Served', url: '/cities' },
         { name: 'Reviews', url: '/review' },
-        { name: 'Community Connection', url: '/community' },
+        { name: 'Blog', url: '/blog' },
         { name: 'Contact', url: '/contact' },
     ];
 

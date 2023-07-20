@@ -36,6 +36,7 @@ function App() {
                 <Route path='house-details' element={<HouseDetails/>}/>
                 <Route path='/properties' element={<Properties/>} />
                 <Route path='*' element={<h1>Not Found</h1>} />
+                <Route path='/blog' element={<h1>Blog</h1>} />
                 {/* other routes */}
             </Routes>
             <Footer/>

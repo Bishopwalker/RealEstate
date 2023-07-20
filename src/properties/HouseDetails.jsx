@@ -1,7 +1,7 @@
 import {useLocation} from "react-router-dom";
 import {Box, Button, Grid, Modal, ThemeProvider, useMediaQuery, useTheme} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {fetchPropertyDetail} from "../redux/propertyDetailSlice.js";
 import {createTheme} from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
@@ -10,6 +10,7 @@ import ImageSlider from "../propertyDetails/ImageSlider.jsx";
 
 const PropertyDetails = () => {
 
+    const [firstLoad, setFirstLoad] = useState(true);
     const location = useLocation();
     const themeInfo = useTheme();
     const isTabletOrBigger = useMediaQuery(themeInfo.breakpoints.up("md"));
@@ -18,12 +19,18 @@ const PropertyDetails = () => {
 
     const data = location.state?.detail;
 
+    useEffect(() => {
+        if (firstLoad) {
+            window.scrollTo(0, 0);
+            setFirstLoad(false);
+        }
+    }, [firstLoad]);
 
 
 
   //  const data = property && property.data ? property.data.results[0] : null;
     const dispatch = useDispatch();
-    console.log(data)
+
 
     const propertyDetail = useSelector(state => state.propertyDetail);
 
