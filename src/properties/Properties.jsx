@@ -55,7 +55,7 @@ function Service() {
 
     const houses = useSelector((state) => state && state.searchHome && state.searchHome.houses);
     const cities = [
-        "Burgaw",
+        "Burgress",
         "Callao",
         "Colonial Beach",
         "Hague",

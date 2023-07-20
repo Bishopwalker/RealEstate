@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import {Box} from "@mui/material";
 import "./style.css";
 
-function Service({ houses }) {
+function Houses({ houses }) {
 
 
     const settings = {
@@ -46,12 +46,12 @@ function Service({ houses }) {
         ],
     };
 
-
+    console.log(houses);
 
     return (
         <Box>
             <Slider {...settings}>
-                {houses?.data?.results?.map((result, resultIndex) => (
+                {houses.map((result, resultIndex) => (
                     <div key={resultIndex} className="card">
                         <div className="card-top">
                             <img src={result.primary_photo.href} alt="House" />
@@ -77,11 +77,7 @@ function Service({ houses }) {
 }
 
 
-Service.defaultProps = {
-    houses: {
-        data: {
-            results: [],
-        },
-    },
+Houses.defaultProps = {
+    houses: [],
 };
-export default Service;
+export default Houses;
