@@ -8,18 +8,19 @@ export const fetchHousesbyMLS = createAsyncThunk(
     'houses/fetchHouses',
     async (mlsIds, { getState }) => {
         const { houses } = getState();
-        if (houses.length > 0) {
+        if (houses.length === mlsIds.length && houses.every((house, index) => house.mlsId === mlsIds[index])) {
             // If houses data already exists in the state, do not make a new API call
             return houses;
         }
         const response = await axios.post('http://localhost:5000/api/properties-by-mls-ids', { mlsIds });
+        console.log('mlsIds', response.data);
         return response.data;
     }
 );
 
 // Create a slice
 const housesSliceByMlsID = createSlice({
-    name: 'houses',
+    name: 'housesByMlsID', // changed from 'houses' to 'housesByMlsID'
     initialState: [],
     reducers: {},
     extraReducers: (builder) => {

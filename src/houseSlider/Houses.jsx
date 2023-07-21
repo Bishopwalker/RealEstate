@@ -1,12 +1,24 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 //@ts-ignore
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {Box} from "@mui/material";
 import "./style.css";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchHousesbyMLS} from "../redux/agentListingsSlice.js";
 
-function Service({ houses }) {
+const mlsIds = [112844, 113591, 113740, 113741, 113935];
+function Service( ) {
+    const dispatch = useDispatch();
+    const houses = useSelector((state) => state.houses);
+    useEffect(() => {
+        console.log(houses);
+        //    const mlsIds = [112844, 113591, 113740, 113741, 113935];
+        dispatch(fetchHousesbyMLS(mlsIds));
+    }, [dispatch]);
+
+    console.log(houses);
 
 
     const settings = {
@@ -48,14 +60,15 @@ function Service({ houses }) {
 
 
 
+
     return (
         <Box>
             <Slider {...settings}>
-                {houses?.data?.results?.map((result, resultIndex) => (
+                { houses?.data?.results.map((result, resultIndex) => (
                     <div key={resultIndex} className="card">
                         <div className="card-top">
                             <img src={result.primary_photo.href} alt="House" />
-                            <h3>{result.location.address.line}, {result.location.address.city}, {result.location.address.state_code} {result.location.address.postal_code}</h3>
+                            <h3>{`${result.location.address.line}, ${result.location.address.city}, ${result.location.address.state_code} ${result.location.address.postal_code}`}</h3>
                             <p>{result.branding[0].name}</p>
                             <p>Baths: {result.description.baths}</p>
                             <p>Full Baths: {result.description.baths_full}</p>

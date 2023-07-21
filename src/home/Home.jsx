@@ -8,6 +8,7 @@ import {useEffect, useState} from "react";
 import Typography from "@mui/material/Typography";
 import BusinessCard from "./BusinessCard.jsx";
 
+const mlsIds = [112844, 113591, 113740, 113741, 113935];
 export default function Home() {
     const [firstLoad, setFirstLoad] = useState(true);
 
@@ -22,7 +23,8 @@ export default function Home() {
     const dispatch = useDispatch();
     const houses = useSelector((state) => state.houses);
     useEffect(() => {
-        const mlsIds = [112844, 113591, 113740, 113741, 113935];
+        console.log(houses);
+    //    const mlsIds = [112844, 113591, 113740, 113741, 113935];
         dispatch(fetchHousesbyMLS(mlsIds));
     }, [dispatch]);
 

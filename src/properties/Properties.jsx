@@ -53,7 +53,7 @@ function Service() {
 
     const [params, setParams] = useState( initialParams );
 
-    const houses = useSelector((state) => state && state.searchHome && state.searchHome.houses);
+    const houses = useSelector((state) =>  state.houses);
     const cities = [
         "Burgaw",
         "Callao",
@@ -87,7 +87,7 @@ function Service() {
         console.log(params)
         dispatch(fetchHouses(params));
     }, [params, dispatch]);
-
+console.log(houses);
     const settings = {
         dots: true,
         infinite: true,
