@@ -59,7 +59,7 @@ console.log(propertyDetail);
 
         }} >
             <Slider {...settings} >
-                {propertyDetail.photos.map((photo, index) => (
+                {propertyDetail.photos && propertyDetail.photos.map((photo, index) => (
                     <div
                         key={index}
                         className="card"
