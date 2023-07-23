@@ -28,7 +28,7 @@ export default function Home() {
         dispatch(fetchHousesbyMLS(mlsIds));
     }, [dispatch]);
 
-console.log(houses);
+
 
     return(
         <Box>
