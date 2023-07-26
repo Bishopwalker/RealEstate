@@ -1,5 +1,5 @@
 require('dotenv').config();
-const {RAPIDAPI_KEY, RAPIDAPI_HOST} = process.env;
+const {RAPIDAPI_KEY, RAPIDAPI_HOST,SERVER_TOKEN} = process.env;
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
@@ -118,6 +118,28 @@ app.post('/api/properties-by-mls-ids', async (req, res) => {
         res.status(500).json({ error: 'An error occurred' });
     }
 });
+
+app.get('/api/reviews', async (req, res) => {
+console.log('reviews')
+    const options = {
+        method: 'GET',
+        url: 'https://api.bridgedataoutput.com/api/v2/OData/reviews/Reviews',
+        params: {
+            access_token: SERVER_TOKEN,
+            $top: 50,
+            $filter: 'RevieweeKey eq \'9cd8ff818cadffc22de689f80638b527\'',
+        }
+    };
+    try {
+        const response = await axios.request(options);
+        res.json(response.data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred' });
+    }
+});
+
+
 
 
 

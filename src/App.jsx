@@ -3,7 +3,6 @@ import Header from "./header/Header.jsx";
  import Home from "./home/Home.jsx";
 import './App.css'
 import {Box} from "@mui/material";
-
 import {Route, Routes} from "react-router-dom";
 import MyStory from "./myStory/MyStory";
 import CityList from "./areas/CityList";
@@ -15,7 +14,7 @@ import Properties from "./properties/Properties.jsx";
 import HouseDetails from "./properties/HouseDetails.jsx";
 function App() {
 
-
+console.log('App.jsx')
     return (
     <>
         <Box

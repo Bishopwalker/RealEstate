@@ -37,11 +37,7 @@ export const fetchHouses = createAsyncThunk(
     async (params, { getState }) => {
         const { houses, ...currentParams } = getState().houses;
 
-        // if (JSON.stringify(params) === JSON.stringify(currentParams)) {
-        //     // If params haven't changed, return the current houses data
-        //     console.log('params have not changed');
-        //     return houses;
-        // }
+
 
         // Create a query string from the params object
         const queryParams = new URLSearchParams({

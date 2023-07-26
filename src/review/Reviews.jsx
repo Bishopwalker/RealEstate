@@ -1,18 +1,14 @@
 import React from 'react';
 import {
     Box, Card, CardContent, CardHeader,
-    CardMedia, Container, Grid, Typography,Divider,Rating
+    CardMedia, Container, Grid, Typography,Divider,
 } from '@mui/material';
+import {fetchReviews} from "../redux/reviewsSlice.js";
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import Rating from '@mui/material/Rating';
 
-const data = [
-    { title: 'He could date my momma',  rating: 4.5, reviewCount:5.0, img: 'https://via.placeholder.com/100', body: 'Some text for card 2' },
-    { title: `I didn't even know he was Jewish until he gave me the price!`, rating: 4.5, reviewCount:4.5, img: 'https://via.placeholder.com/100', body: 'Some text for card 3' },
-    { title: 'Highly likely to recommend', rating: 4.0, reviewCount:4, img: 'https://via.placeholder.com/100', body: 'Some text for card 4' },
-    { title: 'Highly likely to recommend',  rating: 4.5,reviewCount:4.5, img: 'https://via.placeholder.com/100', body: 'Some text for card 5' },
-    { title: 'Highly likely to recommend',  rating: 4.5,reviewCount:5, img: 'https://via.placeholder.com/100', body: 'Some text for card 6' },
-    { title: 'Highly likely to recommend',  rating: 4.5,reviewCount:5, img: 'https://via.placeholder.com/100', body: 'Some text for card 7' },
-    { title: 'Highly likely to recommend',  rating: 4.5,reviewCount:5, img: 'https://via.placeholder.com/100', body: 'Some text for card 8' },
-];
+
 
 const businessProfile = [
     { title: `Jeff's Insulation, Siding, and Windows`,img:'public/golfCourse.jpg',
@@ -51,6 +47,14 @@ const businessComponent= businessProfile.map((businessProfile,index) =>{
 
 
 function Reviews() {
+    const dispatch = useDispatch();
+    const reviews = useSelector((state) => state.reviews);
+
+    React.useEffect(() => {
+        dispatch(fetchReviews());
+
+    }, [dispatch]);
+    console.log('reviews',reviews.value)
     return (
         <Container maxWidth="lg">
             <Grid container spacing={4}>
@@ -68,26 +72,27 @@ function Reviews() {
                             variant="h2">Reviews</Typography>
                         <Grid container spacing={4}>
                             <Box sx={{ display: 'flex', flexWrap: 'wrap', p: 1, m: 1, bgcolor: 'background.paper', justifyContent: 'center' }}>
-                                {data.map((agent, index) => (
+                                {reviews&& reviews.value && reviews.value.map((review, index) => (
                                     <Box key={index} sx={{ p: 1 }}>
                                         <Card sx={{ maxWidth: 345 }}>
                                             <CardContent>
                                                 <Typography variant="h5" component="div">
-                                                    {agent.title}
+                                                    {review.ReviewerScreenName}
                                                 </Typography>
                                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                                    <Rating name="read-only" value={agent.rating} readOnly />
+                                                    <Rating name="read-only" value={review.Rating} precision={0.5} readOnly />
                                                     <Typography variant="subtitle1" component="span">
-                                                        ({agent.reviewCount})
+                                                        ({review.ServiceYear})
                                                     </Typography>
                                                 </Box>
                                                 <Typography variant="body2" color="text.secondary">
-                                                    {agent.body}
+                                                    {review.Description}
                                                 </Typography>
                                             </CardContent>
                                         </Card>
                                     </Box>
                                 ))}
+
                             </Box>
                         </Grid>
                     </Box>
