@@ -19,7 +19,7 @@ function Service( ) {
         dispatch(fetchHousesbyMLS(mlsIds));
     }, [dispatch]);
 
-    console.log([houses[0].data.results[0]]   );
+    //console.log(houses[0].data.results[0]);
 
 
     const settings = {
@@ -63,52 +63,57 @@ function Service( ) {
 
 
     return (
-        <Box  >
+        <Box>
             <Slider {...settings}>
-                {houses[0].data && [houses[0].data.results[0]].map((property, index) => (
-                    <Card key={index}>
-                        <CardMedia
-                            component="img"
-                            alt="Property Image"
-                            height="140"
-                            image={property.primary_photo.href}
-                        />
-                        <CardContent>
-                            <Typography variant="h5" component="div">
-                                {property.location.address.line}, {property.location.address.city}, {property.location.address.state_code} {property.location.address.postal_code}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                Price: ${property.list_price}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                Status: {property.status}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                Description: {property.description.type}
-                            </Typography>
-                            {property.branding.map((brand, i) => (
-                                <Typography key={i} variant="body2" color="text.secondary">
-                                    Branding: {brand.name}
+                {houses && houses.length > 0 && houses[0].data.results.length > 0 ? (
+                    houses[0].data.results.map((property, index) => (
+                        <Card key={index}>
+                            <CardMedia
+                                component="img"
+                                alt="Property Image"
+                                height="140"
+                                image={property.primary_photo.href}
+                            />
+                            <CardContent>
+                                <Typography variant="h5" component="div">
+                                    {property.location.address.line}, {property.location.address.city}, {property.location.address.state_code} {property.location.address.postal_code}
                                 </Typography>
-                            ))}
-                            <Typography variant="body2" color="text.secondary">
-                                Community: {property.community || "N/A"}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                Baths: {property.description.baths || "N/A"}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                Lot Sqft: {property.description.lot_sqft || "N/A"}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                New Listing: {property.flags.is_new_listing ? "Yes" : "No"}
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                ))}
+                                <Typography variant="body2" color="text.secondary">
+                                    Price: ${property.list_price}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    Status: {property.status}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    Description: {property.description.type}
+                                </Typography>
+                                {property.branding.map((brand, i) => (
+                                    <Typography key={i} variant="body2" color="text.secondary">
+                                        Branding: {brand.name}
+                                    </Typography>
+                                ))}
+                                <Typography variant="body2" color="text.secondary">
+                                    Community: {property.community || "N/A"}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    Baths: {property.description.baths || "N/A"}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    Lot Sqft: {property.description.lot_sqft || "N/A"}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    New Listing: {property.flags.is_new_listing ? "Yes" : "No"}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    ))
+                ) : (
+                    <div>Loading...</div>
+                )}
             </Slider>
         </Box>
     );
+
 
 }
 
@@ -116,11 +121,7 @@ function Service( ) {
 Service.defaultProps = {
     houses: {
         data: {
-            results: [{
-                0: {
-
-                }
-            }],
+            results: [],
         },
     },
 };
