@@ -1,4 +1,3 @@
-
 import Header from "./header/Header.jsx";
  import Home from "./home/Home.jsx";
 import './App.css'
@@ -10,6 +9,7 @@ import Footer from "./footer/Footer";
 import Contact from "./contact/Contact";
 import PropertyDetails from "./propertyDetails/PropertyDetails";
 import Reviews from "./review/Reviews.jsx";
+import Blog from "./blog/Blog.jsx";
 import Properties from "./properties/Properties.jsx";
 import HouseDetails from "./properties/HouseDetails.jsx";
 function App() {
@@ -35,7 +35,7 @@ console.log('App.jsx')
                 <Route path='house-details' element={<HouseDetails/>}/>
                 <Route path='/properties' element={<Properties/>} />
                 <Route path='*' element={<h1>Not Found</h1>} />
-                <Route path='/blog' element={<h1>Blog</h1>} />
+                <Route path='/blog' element={<Blog/>} />
                 {/* other routes */}
             </Routes>
             <Footer/>

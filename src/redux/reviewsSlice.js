@@ -6,7 +6,7 @@ import axios from 'axios';
 export const fetchReviews = createAsyncThunk(
     'reviews/fetchReviews',
     async () => {
-        const response = await axios.get('http://localhost:5000/api/reviews');
+        const response = await axios.get('https://977e-119-30-41-109.ngrok-free.app/api/reviews');
         return response.data;
     }
 );

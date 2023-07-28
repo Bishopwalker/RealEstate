@@ -53,6 +53,10 @@ const PropertyDetails = () => {
 
     console.log("prop", propertyDetail)
 
+
+
+
+
     const propertyFields = data ? [
         { label: 'Branding', value: data.branding },
         { label: 'Branding', value: data.branding },

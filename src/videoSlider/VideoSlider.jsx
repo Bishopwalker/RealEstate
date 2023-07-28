@@ -5,12 +5,12 @@ import "slick-carousel/slick/slick.css";
 import Typography from "@mui/material/Typography";
 import { Box, useTheme, useMediaQuery } from "@mui/material";
 import Button from "@mui/material/Button";
-import './style.css';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import './style.css';
+
 export default function VideoSlider() {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
 
     const settings = {
         dots: true,
@@ -51,22 +51,22 @@ export default function VideoSlider() {
 
     // Paths to your .mov files
     const videos = [
-        {
-            name: '/fishing.mp4', message: 'Fishing' },
+        { name: '/fishing.mp4', message: 'Fishing' },
         { name: '/jetski.mp4', message: 'Jet Skiing' },
         { name: '/mov1.mp4', message: 'Crabbing' },
         { name: '/mov2.mp4', message: 'Kayaking' },
         { name: '/mov3.mp4', message: 'Sailing' },
     ];
-const messages =[
-    {short: 'Find A Fine Home!', long: 'The Northern Necks #1 Real Estate Agent since 1999!'},
-    {short: 'Find A Fine Home!', long: 'Sit Back and Enjoy the Finer Things in Life!'},
-    {short: 'Find A Fine Home!', long: 'How long before you forget about the beltway traffic?'},
-    {short: 'Find A Fine Home!', long: 'You Could be back in DC in 2 hours!'},
-    {short: 'Find A Fine Home!', long: 'Stripper, Flouder, and Cobia, oh my!'},
-]
 
-     const [currentSlide, setCurrentSlide] = useState(0);
+    const messages = [
+        { short: 'Find A Fine Home!', long: 'The Northern Necks #1 Real Estate Agent since 1999!' },
+        { short: 'Find A Fine Home!', long: 'Sit Back and Enjoy the Finer Things in Life!' },
+        { short: 'Find A Fine Home!', long: 'How long before you forget about the beltway traffic?' },
+        { short: 'Find A Fine Home!', long: 'You Could be back in DC in 2 hours!' },
+        { short: 'Find A Fine Home!', long: 'Stripper, Flounder, and Cobia, oh my!' },
+    ]
+
+    const [currentSlide, setCurrentSlide] = useState(0);
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentSlide(prevSlide => (prevSlide + 1) % videos.length);
@@ -74,9 +74,8 @@ const messages =[
         return () => clearInterval(interval);
     }, []);
 
-
     return (
-        <Box style={{ position: "relative" }}>
+<Box style={{ position: "relative" }}>
             <Slider {...settings} afterChange={setCurrentSlide}>
                 {videos.map((video, index) => (
                     <div className="sliderCard" key={index}>
@@ -94,8 +93,9 @@ const messages =[
                 textAlign: "left"
             }}>
                 <Typography variant="h4" style={{
+                    fontFamily: 'Montserrat, sans-serif',
                     fontSize: isMobile ? "20px" : "33px",
-                    color: "white",
+                    color: "#2d3436",
                     fontWeight: "bold",
                 }}>
                     {isMobile ? messages[currentSlide].short : messages[currentSlide].long}
@@ -111,9 +111,11 @@ const messages =[
                     variant="contained"
                     style={{
                         marginTop: "10px",
-                        fontSize: isMobile ? "20px" : "30px",
-                        color: "white",
-                        padding: isMobile ? "10px 20px" : "15px 30px",
+                        fontFamily: 'Montserrat, sans-serif',
+                        fontSize: isMobile ? "8px" : "16px",
+                        color: "#dfe6e9",
+						backgroundColor: "#2d3436",
+                        padding: isMobile ? "5px 10px" : "8px 15px",
                         borderRadius: "10px",
                     }}>
                     <Typography variant="h5">
@@ -124,3 +126,5 @@ const messages =[
         </Box>
     );
 }
+
+

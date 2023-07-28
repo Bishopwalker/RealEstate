@@ -20,7 +20,7 @@
   height: 400px;
   color: #fff;
   cursor: pointer;
-  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Montserrat, sans-serif';
   margin: 20px 10px; /* Adjust the vertical and horizontal margins */
 }
 .card_details {
@@ -32,7 +32,7 @@
 
   color: #fff;
   cursor: pointer;
-  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Montserrat, sans-serif';
   margin: 20px 10px; /* Adjust the vertical and horizontal margins */
 }
 
