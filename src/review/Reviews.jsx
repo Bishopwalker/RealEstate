@@ -75,19 +75,32 @@ function Reviews() {
                                 {reviews&& reviews.value && reviews.value.map((review, index) => (
                                     <Box key={index} sx={{ p: 1 }}>
                                         <Card sx={{ maxWidth: 345 }}>
-                                            <CardContent>
-                                                <Typography variant="h5" component="div">
+                                            <CardHeader title={review.ServiceProviderDesc}/>
+                                            <Typography variant="body1" color="text.secondary">
+                                                Address:  {review.FreeFormLocation}
+                                            </Typography>
+                                            <Typography variant="body1" color="text.secondary">
+                                                Date Purchased: {review.ReviewDate}
+                                            </Typography>
                                                     {review.ReviewerScreenName}
-                                                </Typography>
+                                            <CardContent>
+                                                {/*<Typography variant="h6" component="div">*/}
+                                                {/*</Typography>*/}
                                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                                    <Typography variant="subtitle1" component="span">
+                                                       Rating:
+                                                    </Typography>
                                                     <Rating name="read-only" value={review.Rating} precision={0.5} readOnly />
                                                     <Typography variant="subtitle1" component="span">
                                                         ({review.ServiceYear})
                                                     </Typography>
                                                 </Box>
+                                                <Box >
                                                 <Typography variant="body2" color="text.secondary">
                                                     {review.Description}
                                                 </Typography>
+
+                                                </Box>
                                             </CardContent>
                                         </Card>
                                     </Box>

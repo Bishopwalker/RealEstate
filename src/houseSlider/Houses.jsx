@@ -64,7 +64,7 @@ function Service( ) {
     return (
         <Box>
             <Slider {...settings}>
-                { houses?.data?.results.map((result, resultIndex) => (
+                {  houses.data.results.map((result, resultIndex) => (
                     <div key={resultIndex} className="card">
                         <div className="card-top">
                             <img src={result.primary_photo.href} alt="House" />

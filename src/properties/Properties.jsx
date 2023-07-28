@@ -88,6 +88,7 @@ function Service() {
         dispatch(fetchHouses(params));
     }, [params, dispatch]);
 console.log(houses);
+
     const settings = {
         dots: true,
         infinite: true,
