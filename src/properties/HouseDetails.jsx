@@ -32,7 +32,7 @@ const PropertyDetails = () => {
     const dispatch = useDispatch();
 
 
-    const propertyDetail = useSelector(state => state.propertyDetail);
+    const propertyDetail = useSelector(state => state.propertyDetail.property_detail );
 
     useEffect(() => {
         if (data) {
