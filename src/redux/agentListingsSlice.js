@@ -1,17 +1,20 @@
 // housesSliceByMlsID.js
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const initialState = {
+    agentListings: []
+}
 // Async action to fetch houses data
 // Async action to fetch houses data
 export const fetchHousesbyMLS = createAsyncThunk(
-    'houses/fetchHouses',
+    'houses',
     async (mlsIds, { getState }) => {
-        const { houses } = getState();
-        if (houses.length === mlsIds.length && houses.every((house, index) => house.mlsId === mlsIds[index])) {
-            // If houses data already exists in the state, do not make a new API call
-            return houses;
-        }
+        // const { houses } = getState();
+        // if (houses.length === mlsIds.length && houses.every((house, index) => house.mlsId === mlsIds[index])) {
+        //     // If houses data already exists in the state, do not make a new API call
+        //     return houses;
+        // }
         const response = await axios.post('http://localhost:5000/api/properties-by-mls-ids', { mlsIds });
         console.log('mlsIds', response.data);
         return response.data;
@@ -21,7 +24,7 @@ export const fetchHousesbyMLS = createAsyncThunk(
 // Create a slice
 const housesSliceByMlsID = createSlice({
     name: 'housesByMlsID', // changed from 'houses' to 'housesByMlsID'
-    initialState: [],
+    initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchHousesbyMLS.fulfilled, (state, action) => {
