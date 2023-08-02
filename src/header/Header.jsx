@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
-import { AppBar, Toolbar, Box, Typography, IconButton, Drawer, List, ListItem, ListItemText, TextField, Button } from '@mui/material';
-import MailIcon from '@mui/icons-material/Mail';
+import React, {useState} from 'react';
+import {
+    AppBar,
+    Box,
+    Button,
+    Drawer,
+    IconButton,
+    List,
+    ListItem,
+    ListItemText,
+    TextField,
+    Toolbar,
+    Typography
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import CircularProgress from '@mui/material/CircularProgress';
 import NotFound from "../notFound/NotFound.jsx";
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -161,7 +172,7 @@ const Header = () => {
         open={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
       >
-        <Box sx={{ width: 250 }} onClick={() => setMobileMenuOpen(false)}>
+        <Box sx={{ width: 250, backgroundColor:'black' }} onClick={() => setMobileMenuOpen(false)}>
           <List>
             {navItems.map((item, index) => (
               <ListItem
@@ -178,7 +189,7 @@ const Header = () => {
                 }}
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <ListItemText primary={item.name} />
+                <ListItemText primary={item.name} sx={{ color: 'white' }} />
               </ListItem>
             ))}
           </List>
