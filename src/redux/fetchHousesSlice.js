@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
     houses: [],
@@ -34,8 +34,8 @@ const initialState = {
 
 export const fetchHouses = createAsyncThunk(
     'houses/fetchHouses',
-    async (params, { getState }) => {
-        const { houses, ...currentParams } = getState().houses;
+    async (params) => {
+
 
 
 

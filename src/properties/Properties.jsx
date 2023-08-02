@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {
     Box,
-    Select,
-    MenuItem,
-    FormControl,
-    InputLabel,
-    TextField,
-    FormControlLabel,
+    Button,
     Checkbox,
+    FormControl,
+    FormControlLabel,
     Grid,
-    Button
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField
 } from "@mui/material";
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchHouses } from "../redux/fetchHousesSlice.js";
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchHouses} from "../redux/fetchHousesSlice.js";
 import Typography from "@mui/material/Typography";
 import {useNavigate} from "react-router-dom";
 
-function Service() {
+function Properties() {
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
@@ -51,6 +51,7 @@ function Service() {
         lot_size_max: ''
     };
 
+    const [loading, setLoading] = useState(true);
     const [params, setParams] = useState( initialParams );
 
     const houses = useSelector((state) =>  state.houses);
@@ -86,6 +87,7 @@ function Service() {
     useEffect(() => {
         console.log(params)
         dispatch(fetchHouses(params));
+        setLoading(false);
     }, [params, dispatch]);
 console.log(houses);
 
@@ -139,6 +141,9 @@ console.log(houses);
     const handleCheckboxChange = (paramName) => (event) => {
         setParams(prevParams => ({ ...prevParams, [paramName]: event.target.checked }));
     };
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <Box minHeight='300px' padding="20px" margin="auto" >
@@ -522,4 +527,4 @@ console.log(houses);
     );
 }
 
-export default Service;
+export default Properties;

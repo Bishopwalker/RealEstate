@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import {useNavigate} from "react-router-dom";
 
 const mlsIds = [112844, 113591, 113740, 113741, 113935];
-function Service( ) {
+function Houses( ) {
 
 
     const navigate = useNavigate();
@@ -71,7 +71,7 @@ function Service( ) {
             <Slider {...settings}>
                 {houses && houses.length > 0 && houses[0].data.results.length > 0 ? (
                     houses[0].data.results.map((property, index) => (
-                        <Card key={index} component='div'  key={index} className="card" onClick={()=> navigate('/property-details', { state: { detail: houses[0].data.results } })}>
+                        <Card key={index}>
                             <CardMedia
                                 component="img"
                                 alt="Property Image"
@@ -116,17 +116,18 @@ function Service( ) {
                 )}
             </Slider>
         </Box>
+
     );
 
 
 }
 
 
-Service.defaultProps = {
+Houses.defaultProps = {
     houses: {
         data: {
             results: [],
         },
     },
 };
-export default Service;
+export default Houses;

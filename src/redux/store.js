@@ -1,14 +1,9 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+import {combineReducers, configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
+import logger from 'redux-logger';
 import housesReducer from './agentListingsSlice.js';
 import propertyDetailReducer from './propertyDetailSlice.js';
 import searchHomeReducer from './fetchHousesSlice.js';
 import reviewsReducer from './reviewsSlice.js';
-
-const persistConfig = {
-    key: 'root',
-    storage,
-};
 
 const rootReducer = combineReducers({
     houses: housesReducer,
@@ -19,8 +14,9 @@ const rootReducer = combineReducers({
 
 // const persistedReducer = persistReducer(persistConfig, rootReducer);
 
+const middleware = [...getDefaultMiddleware(), logger];
+
 export const store = configureStore({
     reducer:rootReducer,
+    middleware,
 });
-
-
