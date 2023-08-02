@@ -1,12 +1,12 @@
 // reviewsSlice.js
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 // Async action to fetch reviews data
 export const fetchReviews = createAsyncThunk(
     'reviews/fetchReviews',
     async () => {
-        const response = await axios.get('https://977e-119-30-41-109.ngrok-free.app/api/reviews');
+        const response = await axios.get('http://localhost:5000/api/reviews');
         return response.data;
     }
 );

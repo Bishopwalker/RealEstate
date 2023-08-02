@@ -86,7 +86,10 @@ const Blog = () => {
       <ThemeProvider theme={theme}>
         <Container maxWidth="lg" sx={{ padding: '40px 0' }}>
           <Typography variant="h3" sx={{ textAlign: 'center', fontWeight: 'bold', margin: '0rem 0 2rem 0', color: '#2d3436', fontFamily: 'Montserrat, sans-serif', }}>
-            Blog
+            Blogs
+          </Typography>
+          <Typography variant="h6" sx={{ textAlign: 'center', fontWeight: 'bold', margin: '0rem 0 2rem 0', color: '#2d3436', fontFamily: 'Montserrat, sans-serif', }}>
+            by David Fine
           </Typography>
           <Grid container spacing={4} justifyContent="center">
             {blogPosts.map((post, index) => (
