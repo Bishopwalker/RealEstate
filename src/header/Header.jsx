@@ -1,204 +1,207 @@
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { makeStyles } from '@mui/styles';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { AppBar, Toolbar, Box, Typography, IconButton, Drawer, List, ListItem, ListItemText, TextField, Button } from '@mui/material';
 import MailIcon from '@mui/icons-material/Mail';
-import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
-import NotFound from "../notFound/NotFound.jsx";
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { SearchOutlined } from '@mui/icons-material';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import CircularProgress from '@mui/material/CircularProgress';
-
-const useStyles = makeStyles({
-    button: {
-        color: 'white',
-        textDecoration: 'none',
-        '&:hover': {
-            textDecoration: 'underline',
-            backgroundColor: '#333',
-        },
-        '&:hover, &:active': {
-            cursor: 'pointer',
-        },
-    },
-});
+import NotFound from "../notFound/NotFound.jsx";
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
-    const classes = useStyles();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const [searchInput, setSearchInput] = useState('');
-    const [property, setProperty] = useState({});
-    const [showModal, setShowModal] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Added this line
+  const [searchInput, setSearchInput] = useState('');
+  const [property, setProperty] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const navItems = [
+    { name: 'My Story', url: '/about' },
+    { name: 'Properties', url: '/properties' },
+    { name: 'Areas Served', url: '/cities' },
+    { name: 'Reviews', url: '/review' },
+    { name: 'Blog', url: '/blog' },
+    { name: 'Contact', url: '/contact' },
+  ];
 
-    const navItems = [
-        { name: 'My Story', url: '/about' },
-        { name: 'Properties', url: '/properties' },
-        { name: 'Areas Served', url: '/cities' },
-        { name: 'Reviews', url: '/review' },
-        { name: 'Blog', url: '/blog' },
-        { name: 'Contact', url: '/contact' },
-    ];
+  const handleSearchInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
 
-    const handleSearchInputChange = (event) => {
-        setSearchInput(event.target.value);
-      //  console.log(searchInput)
+  const closeModal = () => {
+    setShowModal(false);
+    setSearchInput('');
+  };
 
-    };
-    //console.log(searchInput)
-    const closeModal = () => {
-        setShowModal(false);
-        setSearchInput('');
-    };
+  const fetchProduct = async (e) => {
+    e.preventDefault();
 
-    const fetchProduct = async (e) => {
-        e.preventDefault();
+    if (!searchInput) {
+      return;
+    }
 
-        if (!searchInput) {
-        //    console.log('test')
-            return;
-        }
+    setLoading(true);
 
+    try {
+      const response = await axios.get(`http://localhost:5000/api/property-by-mls-id/${searchInput}`);
+      if (response.data.data.count !== null) {
+        setProperty(response.data);
+      } else {
+        setShowModal(true);
+      }
+    } catch (error) {
+      setShowModal(true);
+    }
 
-        setLoading(true);
+    setLoading(false);
+  };
 
-        try {
-            const response = await axios.get(`http://localhost:5000/api/property-by-mls-id/${searchInput}`);
-                console.log(response.data.data);
-            if (response.data.data.count !== null) {
-                setProperty(response.data);
-            } else {
-                setShowModal(true);
-            }
-        } catch (error) {
-            setShowModal(true);
-        }
+  return (
+    <Box>
+      <AppBar position="sticky" sx={{ backgroundColor: '#1e272e', boxShadow: 'none', fontFamily: 'Montserrat, sans-serif' }}>
+        {showModal && <NotFound closeModal={closeModal} />}
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Typography
+            variant="h4"
+            component={Link}
+            to="/"
+            sx={{
+			  fontFamily: "'Great Vibes', cursive",
+              fontSize: '2rem',
+              color: 'white',
+              textDecoration: 'none',
+              '&:hover': { textDecoration: 'underline' },
+            }}
+          >
+            David Fine
+          </Typography>
 
-        setLoading(false);
-    };
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={() => setMobileMenuOpen(true)}
+            sx={{ display: { md: 'none' } }}
+          >
+            <MenuIcon />
+          </IconButton>
 
-    useEffect(() => {
-        if (property.data) {
-            navigate('/property-details', { state: { property: property } });
-        }
-    }, [property ]);
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
+            {navItems.map((item, index) => (
+              <Button
+                key={index}
+                component={Link}
+                to={item.url}
+                sx={{
+                  color: 'white',
+                  textDecoration: 'none',
+				  fontFamily: 'Montserrat, sans-serif',
+                  marginX: 2,
+                  '&:hover, &:focus': { backgroundColor: '#2c3e50' },
+                  transition: 'background-color 0.3s ease',
+                  borderRadius: '4px',
+                }}
+              >
+                {item.name}
+              </Button>
+            ))}
+          </Box>
 
-    return (
-        <Box>
-            <AppBar position="sticky" sx={{ backgroundColor: 'black' }}>
-            {showModal && <NotFound closeModal={closeModal} />}
-                <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Typography
-                        variant="h4"
-                        component="span"
-                        sx={{ fontFamily: "'Great Vibes', cursive", color: 'white' }}
-                    >
-                        <Link to="/" className={classes.button}>
-                            David Fine
-                        </Link>
-                    </Typography>
+          <form onSubmit={fetchProduct} sx={{ display: 'flex', alignItems: 'center' }}>
+      <TextField
+        id="standard-basic"
+        variant="outlined"
+        className="searchInput"
+        value={searchInput}
+        onChange={handleSearchInputChange}
+        placeholder="MLS #"
+        sx={{
+          backgroundColor: '#fff', // White background color for the search box
+          fontFamily: 'Montserrat, sans-serif',
+          color: '#1E272E',
+          fontSize: '14px',
+          borderRadius: '8px', // Rounded corners for the search box
+          marginRight: '16px', // Add some spacing between the search box and the icon button
+          '& .MuiInputBase-input': {
+            fontFamily: 'Montserrat, sans-serif', // Set font-family for the input text
+            '&::placeholder': {
+              fontFamily: 'Montserrat, sans-serif', // Set font-family for the placeholder text
+              color: '#1E272E', // Set placeholder text color (if needed)
+            },
+          },
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: 'transparent', // Hide the border of the search box when not focused
+            },
+            '&:hover fieldset': {
+              borderColor: 'transparent', // Hide the border of the search box on hover
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: 'transparent', // Hide the border of the search box when focused
+            },
+          },
+        }}
+        InputProps={{
+          endAdornment: (
+            <IconButton type="submit">
+              <SearchOutlinedIcon sx={{ fontSize: 28 }} />
+            </IconButton>
+          ),
+        }}
+      />
 
-                    <IconButton
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        onClick={() => setMobileMenuOpen(true)}
-                        sx={{ display: { md: 'none' } }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
+          </form>
+        </Toolbar>
+      </AppBar>
 
-                    <Box
-                        sx={{
-                            justifyContent: 'space-between',
-                            flexGrow: 1,
-                            mx: 8,
-                            display: { xs: 'none', md: 'flex' },
-                        }}
-                    >
-                        {navItems.map((item, index) => (
-                            <Button
-                                key={index}
-                                component={Link}
-                                to={item.url}
-                                className={classes.button}
-                            >
-                                {item.name}
-                            </Button>
-                        ))}
-
-                        <MailIcon />
-                    </Box>
-                    <form onSubmit={fetchProduct}>
-                        <TextField
-                            id="standard-bare"
-                            variant="outlined"
-                            onChange={handleSearchInputChange}
-                            sx={{ backgroundColor: 'white', color: 'red' }}
-                            placeholder="MLS #"
-                            InputProps={{
-                                endAdornment: (
-                                    <IconButton>
-                                        <SearchOutlined />
-                                    </IconButton>
-                                ),
-                            }}
-                        />
-                    </form>
-                </Toolbar>
-            </AppBar>
-
-            <Drawer
-                anchor="left"
-                open={mobileMenuOpen}
-                onClose={() => setMobileMenuOpen(false)}
-            >
-                <Box sx={{ width: 250 }} onClick={() => setMobileMenuOpen(false)}>
-                    <List>
-                        {navItems.map((item, index) => (
-                            <ListItem
-                                key={index}
-                                component={Link}
-                                to={item.url}
-                                className={classes.button}
-                            >
-                                <ListItemText primary={item.name} />
-                            </ListItem>
-                        ))}
-                    </List>
-                </Box>
-            </Drawer>
-
-            {loading && (
-                <Box
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: '100vh',
-                    }}
-                >
-                    <CircularProgress />
-                    <Typography variant="h6" component="div" sx={{ ml: 2 }}>
-                        Loading property data...
-                    </Typography>
-                </Box>
-            )}
+      <Drawer
+        anchor="left"
+        open={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+      >
+        <Box sx={{ width: 250 }} onClick={() => setMobileMenuOpen(false)}>
+          <List>
+            {navItems.map((item, index) => (
+              <ListItem
+                key={index}
+                component={Link}
+                to={item.url}
+                sx={{
+                  color: 'white',
+                  textDecoration: 'none',
+                  '&:hover': { textDecoration: 'underline' },
+                  '&:hover, &:focus': { backgroundColor: '#2c3e50' },
+                  transition: 'background-color 0.3s ease',
+                  borderRadius: '4px',
+                }}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <ListItemText primary={item.name} />
+              </ListItem>
+            ))}
+          </List>
         </Box>
-    );
+      </Drawer>
+
+      {loading && (
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100vh',
+          }}
+        >
+          <CircularProgress />
+          <Typography variant="h6" component="div" sx={{ ml: 2 }}>
+            Loading property data...
+          </Typography>
+        </Box>
+      )}
+    </Box>
+  );
 };
 
 export default Header;

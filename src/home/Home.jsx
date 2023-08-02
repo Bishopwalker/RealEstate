@@ -34,14 +34,20 @@ export default function Home() {
     return(
         <Box>
             <VideoSlider/>
-            <Typography sx={{
-                textAlign: 'center',
-                marginTop: '2rem',
-                marginBottom: '2rem',
-                fontFamily: 'cursive',
-            }} variant={'h4'}>
+      <Typography
+        variant="h4"
+        sx={{
+          fontSize: '2.5rem',
+          fontWeight: 'bold',
+          zIndex: 1,
+          color: '#1E272E',
+          marginTop: '3rem',
+          marginBottom: '3rem',
+      	  fontFamily: "'Montserrat', sans-serif",
+        }}
+      >
                 My Exclusive Listings
-            </Typography>
+      </Typography>
             <Houses houses={houses} />
             <BusinessCard/>
         </Box>

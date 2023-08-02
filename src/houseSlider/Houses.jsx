@@ -1,28 +1,25 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 //@ts-ignore
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {Box, Card, CardContent, CardMedia} from "@mui/material";
-import "./style.css";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchHousesbyMLS} from "../redux/agentListingsSlice.js";
+import { Box, Card, CardContent, CardMedia } from "@mui/material";
 import Typography from "@mui/material/Typography";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchHousesbyMLS } from "../redux/agentListingsSlice.js";
 
-const mlsIds = [112844, 113591, 113740, 113741, 113935];
-function Houses( ) {
+const mlsIds = 
+ 
 
+function Service() {
+  const dispatch = useDispatch();
+  const houses = useSelector((state) => state.houses);
 
-
-    const dispatch = useDispatch();
-    const houses = useSelector((state) => state.agentListings);
-    useEffect(() => {
-        console.log(houses);
-        //    const mlsIds = [112844, 113591, 113740, 113741, 113935];
-        dispatch(fetchHousesbyMLS(mlsIds));
-    }, [dispatch]);
-
-    //console.log(houses[0].data.results[0]);
+  useEffect(() => {
+    console.log(houses);
+    //    const mlsIds = [112844, 113591, 113740, 113741, 113935];
+    dispatch(fetchHousesbyMLS(mlsIds));
+  }, [dispatch]);
 
 
     const settings = {
@@ -118,8 +115,57 @@ function Houses( ) {
 
     );
 
+ 
 
+  return (
+    <Box sx={{ fontFamily: "Montserrat, sans-serif" }}>
+      {houses && houses.length > 0 && houses[0].data.results.length > 0 ? (
+        <Slider {...settings} sx={{ maxWidth: "80%", margin: "auto" }}>
+          {houses[0].data.results.map((property, index) => (
+            <Card key={index} sx={{ borderRadius: "16px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", mb: 2, mt: 2 }}>
+              <CardMedia component="img" alt="Property Image" height="140" image={property.primary_photo.href} />
+              <CardContent>
+                <Typography variant="h5" component="div" sx={{ fontFamily: "Montserrat, sans-serif" }}>
+                  {property.location.address.line}, {property.location.address.city}, {property.location.address.state_code} {property.location.address.postal_code}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ fontFamily: "Montserrat, sans-serif" }}>
+                  Price: ${property.list_price}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ fontFamily: "Montserrat, sans-serif" }}>
+                  Status: {property.status}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ fontFamily: "Montserrat, sans-serif" }}>
+                  Description: {property.description.type}
+                </Typography>
+                {property.branding.map((brand, i) => (
+                  <Typography key={i} variant="body2" color="text.secondary" sx={{ fontFamily: "Montserrat, sans-serif" }}>
+                    Branding: {brand.name}
+                  </Typography>
+                ))}
+                <Typography variant="body2" color="text.secondary" sx={{ fontFamily: "Montserrat, sans-serif" }}>
+                  Community: {property.community || "N/A"}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ fontFamily: "Montserrat, sans-serif" }}>
+                  Baths: {property.description.baths || "N/A"}
+                </Typography>
+                <Typography variant="body2" color="text.secondary"  sx={{ fontFamily: "Montserrat, sans-serif" }}>
+                  Lot Sqft: {property.description.lot_sqft || "N/A"}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ fontFamily: "Montserrat, sans-serif" }}>
+                  New Listing: {property.flags.is_new_listing ? "Yes" : "No"}
+                </Typography>
+              </CardContent>
+            </Card>
+          ))}
+        </Slider>
+      ) : (
+        <div>Loading...</div>
+      )}
+    </Box>
+  );
 }
+
+
 
 
 Houses.defaultProps = {
@@ -130,3 +176,4 @@ Houses.defaultProps = {
     },
 };
 export default Houses;
+
