@@ -54,7 +54,7 @@ function Properties() {
     const [loading, setLoading] = useState(true);
     const [params, setParams] = useState( initialParams );
 
-    const houses = useSelector((state) =>  state.houses);
+    const houses = useSelector((state) =>  state.searchHome.housesByParams);
     const cities = [
         "Burgress",
         "Callao",
@@ -88,6 +88,10 @@ function Properties() {
         console.log(params)
         dispatch(fetchHouses(params));
         setLoading(false);
+        return () => {
+            // cleanup
+            setLoading(true);
+        }
     }, [params, dispatch]);
 console.log(houses);
 
@@ -506,7 +510,8 @@ console.log(houses);
                             <img src={house.primary_photo && house.primary_photo.href} alt="House" />
                             <h2>{parseInt(house.list_price) < 100000 ? "Only $" + house.list_price : "$" + house.list_price}</h2>
 
-                            <h3>{house.location.address.line}, {house.location.address.city}, {house.location.address.state_code} {house.location.address.postal_code}</h3>
+                            <h3>{house.location?.address?.line}, {house.location?.address?.city}, {house.location?.address?.state_code} {house.location?.address?.postal_code}</h3>
+
                             <p>{house.branding[0].name}</p>
                             <p>Baths: {house.description.baths}</p>
                             <p>Full Baths: {house.description.baths_full}</p>

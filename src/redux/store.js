@@ -6,7 +6,7 @@ import searchHomeReducer from './fetchHousesSlice.js';
 import reviewsReducer from './reviewsSlice.js';
 
 const rootReducer = combineReducers({
-    houses: housesReducer,
+    agentListings: housesReducer,
     propertyDetail: propertyDetailReducer,
     searchHome: searchHomeReducer,
     reviews: reviewsReducer,

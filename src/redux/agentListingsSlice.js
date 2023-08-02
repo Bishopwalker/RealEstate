@@ -2,10 +2,13 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const initialState = {
+    agentListings: []
+}
 // Async action to fetch houses data
 // Async action to fetch houses data
 export const fetchHousesbyMLS = createAsyncThunk(
-    'houses/fetchHouses',
+    'houses',
     async (mlsIds, { getState }) => {
         // const { houses } = getState();
         // if (houses.length === mlsIds.length && houses.every((house, index) => house.mlsId === mlsIds[index])) {
@@ -21,7 +24,7 @@ export const fetchHousesbyMLS = createAsyncThunk(
 // Create a slice
 const housesSliceByMlsID = createSlice({
     name: 'housesByMlsID', // changed from 'houses' to 'housesByMlsID'
-    initialState: [],
+    initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchHousesbyMLS.fulfilled, (state, action) => {

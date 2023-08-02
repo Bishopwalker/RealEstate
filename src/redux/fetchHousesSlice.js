@@ -1,7 +1,8 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const initialState = {
-    houses: [],
+    housesByParams: [],
     params: {
         city: '',
         limit: 0,
@@ -47,9 +48,9 @@ export const fetchHouses = createAsyncThunk(
             offset: 0
         }).toString();
 console.log(queryParams);
-        const response = await fetch(`http://localhost:5000/api/for-sale?${queryParams}`);
+        const response = await axios.get(`http://localhost:5000/api/for-sale?${queryParams}`);
 
-        const data = await response.json();
+        const data = response.data;
         console.log(data.data.home_search.results);
         return data.data.home_search.results;
     }
@@ -67,7 +68,7 @@ export const housesSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchHouses.fulfilled, (state, action) => {
-            state.houses = action.payload;
+            state.housesByParams = action.payload;
             state.params = action.meta.arg;
         });
     },
