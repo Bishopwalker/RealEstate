@@ -1,7 +1,5 @@
-import { Box, Grid } from '@mui/material';
-import Grid2 from "@mui/material/Unstable_Grid2";
+import {Box} from '@mui/material';
 import Modal from "@mui/material/Modal";
-import { useNavigate } from 'react-router-dom';
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 

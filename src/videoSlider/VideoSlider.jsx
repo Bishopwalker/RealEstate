@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import Typography from "@mui/material/Typography";
-import { Box, useTheme, useMediaQuery } from "@mui/material";
+import {Box, useMediaQuery, useTheme} from "@mui/material";
 import Button from "@mui/material/Button";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import './style.css';
+import {Link} from "react-router-dom";
 
 export default function VideoSlider() {
     const theme = useTheme();
@@ -72,7 +73,7 @@ export default function VideoSlider() {
             setCurrentSlide(prevSlide => (prevSlide + 1) % videos.length);
         }, 30000);
         return () => clearInterval(interval);
-    }, []);
+    }, [videos.length]);
 
     return (
 <Box style={{ position: "relative" }}>
@@ -118,9 +119,11 @@ export default function VideoSlider() {
                         padding: isMobile ? "5px 10px" : "8px 15px",
                         borderRadius: "10px",
                     }}>
+                    <Link to={"/properties"}>
                     <Typography variant="h5">
                         {isMobile ? "Find A Home!" : "Find A Fine Home Today!"} <ShoppingCartIcon/>
                     </Typography>
+                    </Link>
                 </Button>
             </div>
         </Box>
