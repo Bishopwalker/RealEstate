@@ -1,25 +1,18 @@
 import React from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import {
-  Box, Card, CardContent, CardHeader,
-  CardMedia, Container, Grid, Typography, Divider,
-} from '@mui/material';
-import { fetchReviews } from "../redux/reviewsSlice.js";
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import {Box, Card, CardContent, CardHeader, CardMedia, Container, Divider, Grid, Typography,} from '@mui/material';
+import {fetchReviews} from "../redux/reviewsSlice.js";
+import {useDispatch, useSelector} from 'react-redux';
 import Rating from '@mui/material/Rating';
 
-const theme = createTheme({
-  typography: {
-    fontFamily: 'Montserrat, sans-serif',
-  },
-});
 
 const businessProfile = [
-  { title: "Jeff's Insulation, Siding, and Windows", img: 'public/golfCourse.jpg', website: 'https://via.placeholder.com/100', phone: '123-456-7890', email: 'jeff@whatever.com' },
-  { title: "Northern Neck Garbage Collection", img: 'public/NNGC.LOGO.NW.svg', phone: '123-456-7890', email: 'bishop@northernneckgarbage.com' },
-];
+    { title: `Jeff's Insulation, Siding, and Windows`,img:'/golfCourse.jpg',
+        website: 'https://via.placeholder.com/100', phone: '123-456-7890', email: 'jeff@whatever.com'},
+    { title: "Northern Neck Garbage Collection", img:'/NNGC.LOGO.NW.svg', phone: '123-456-7890', email: 'bishop@northernneckgarbage.com'},
+]
+
+
 
 const businessComponent = businessProfile.map((businessProfile, index) => {
   return (

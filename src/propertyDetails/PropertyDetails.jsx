@@ -1,10 +1,9 @@
 import React, {useEffect} from 'react';
 import Typography from '@mui/material/Typography';
-import {Navigate, useLocation} from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 import {Box, Button, Grid, Modal, ThemeProvider, useMediaQuery, useTheme} from '@mui/material';
-import { createTheme } from '@mui/material/styles';
+import {createTheme} from '@mui/material/styles';
 import MortgageCalculator from "../calculator/PaymentCalculator.jsx";
-import axios from "axios";
 import ImageSlider from "./ImageSlider.jsx";
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchPropertyDetail} from "../redux/propertyDetailSlice.js";
