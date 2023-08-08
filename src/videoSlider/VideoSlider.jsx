@@ -60,11 +60,11 @@ export default function VideoSlider() {
     ];
 
     const messages = [
-        { short: 'Find A Fine Home!', long: 'The Northern Necks #1 Real Estate Agent since 1999!' },
-        { short: 'Find A Fine Home!', long: 'Sit Back and Enjoy the Finer Things in Life!' },
+        { short: 'Find A Fine Home!', long: 'The Northern Necks Waterfront expert for over 25 years!' },
+        { short: 'Find A Fine Home!', long: `Sit Back and Enjoy the <b>Fine</b>r Things in Life!` },
         { short: 'Find A Fine Home!', long: 'How long before you forget about the beltway traffic?' },
         { short: 'Find A Fine Home!', long: 'You Could be back in DC in 2 hours!' },
-        { short: 'Find A Fine Home!', long: 'Stripper, Flounder, and Cobia, oh my!' },
+        { short: 'Find A Fine Home!', long: 'Striper, Flounder, and Cobia, oh my!' },
     ]
 
     const [currentSlide, setCurrentSlide] = useState(0);
