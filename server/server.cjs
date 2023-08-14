@@ -1,5 +1,5 @@
 require('dotenv').config();
-const {RAPIDAPI_KEY, RAPIDAPI_HOST,SERVER_TOKEN} = process.env;
+const {RAPIDAPI_KEY, RAPIDAPI_HOST,SERVER_TOKEN,RAPIDAPI_HOST_REALTOR} = process.env;
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
@@ -9,6 +9,7 @@ const port = 5000;
 app.use(cors());
 app.use(express.json());
 console.log(process.env.RAPIDAPI_KEY);
+//Property Detail US Real Estate API
 app.get('/api/property-detail/:propertyId', async (req, res) => {
     const { propertyId } = req.params;
 
@@ -33,6 +34,32 @@ app.get('/api/property-detail/:propertyId', async (req, res) => {
         res.status(500).json({ error: 'An error occurred' });
     }
 });
+
+//Property Detail realtor.com API
+app.get('/api/property-detail-realtor/:propertyId', async (req, res) => {
+    const { propertyId } = req.params;
+
+    const options = {
+        method: 'GET',
+        url: 'https://realty-in-us.p.rapidapi.com/properties/v3/detail',
+        params: {
+            property_id: propertyId
+        },
+        headers: {
+            'X-RapidAPI-Key': RAPIDAPI_KEY,
+            'X-RapidAPI-Host': RAPIDAPI_HOST_REALTOR
+        }
+    };
+
+    try {
+        const response = await axios.request(options);
+        console.log(response.data);
+        res.json(response.data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred' });
+    }
+})
 
 //Get nearby areas for include_nearby_areas_slug_id parameter in /for-sale endpoint. Get by (area_type="city" & city & state_code) or by (area_type="neighborhood" & city & state_code & neighborhood) or by (area_type="postal_c...
 app.get('/api/for-sale', async (req, res) => {
@@ -90,6 +117,30 @@ console.log(RAPIDAPI_KEY)
         res.status(500).json({ error: 'An error occurred' });
     }
 });
+app.get('/api/similar/:propertyId', async (req, res) => {
+    console.log('similar')
+    const { propertyId } = req.params;
+    const options = {
+        method: 'GET',
+        url: 'https://us-real-estate.p.rapidapi.com/for-sale/similiar-homes',
+        params: {
+            property_id: propertyId
+        },
+        headers: {
+            'X-RapidAPI-Key': RAPIDAPI_KEY,
+            'X-RapidAPI-Host': RAPIDAPI_HOST,
+        }
+    };
+
+    try {
+        const response = await axios.request(options);
+        console.log(response.data);
+        res.json(response.data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred' });
+    }
+})
 
 app.post('/api/properties-by-mls-ids', async (req, res) => {
     const { mlsIds } = req.body;
@@ -138,7 +189,6 @@ console.log('reviews')
         res.status(500).json({ error: 'An error occurred' });
     }
 });
-
 
 
 

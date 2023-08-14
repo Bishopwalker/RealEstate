@@ -29,6 +29,7 @@ const PropertyDetails = () => {
 
     useEffect(() => {
         if (data) {
+            console.log("Dispatching fetchPropertyDetail with ID:", data.property_id); // Add this line
             dispatch(fetchPropertyDetail(data.property_id));
         }
     }, [data, dispatch]);

@@ -8,11 +8,12 @@ import "./style.css";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchHousesbyMLS} from "../redux/agentListingsSlice.js";
 import Typography from "@mui/material/Typography";
+import {useNavigate} from "react-router-dom";
 
 const mlsIds = [112844, 113591, 113740, 113741, 113935];
 function Houses( ) {
 
-
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
     const houses = useSelector((state) => state.agentListings);
@@ -70,7 +71,7 @@ function Houses( ) {
             <Slider {...settings}>
                 {houses && houses.length > 0 && houses[0] && houses[0].data && houses[0].data.results.length > 0 ? (
                     houses[0].data.results.map((property, index) => (
-                        <Card key={index}>
+                        <Card key={index} onClick={()=> navigate('/house-details', { state: { detail: property } })}>
                             <CardMedia
                                 component="img"
                                 alt="Property Image"

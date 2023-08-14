@@ -31,7 +31,7 @@ const PropertyDetails = () => {
   //  const data = property && property.data ? property.data.results[0] : null;
     const dispatch = useDispatch();
 
-
+console.log("data", data)
  
  
     const propertyDetail = useSelector(state => state.propertyDetail ? state.propertyDetail.property_detail : null);

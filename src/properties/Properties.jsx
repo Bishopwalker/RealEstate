@@ -505,7 +505,7 @@ console.log(houses);
 
                 <Slider {...settings}>
                 {houses && houses.map((house, index) => (
-                    <div key={index} className="card" onClick={()=> navigate('/house-details', { state: { detail: house } })}>
+                    <div key={index} className="card" onClick={()=> navigate('/realator-details', { state: { detail: house } })}>
                         <div className="card-top">
                             <img src={house.primary_photo && house.primary_photo.href} alt="House" />
                             <h2>{parseInt(house.list_price) < 100000 ? "Only $" + house.list_price : "$" + house.list_price}</h2>

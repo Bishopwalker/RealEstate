@@ -1,5 +1,5 @@
 import Header from "./header/Header.jsx";
- import Home from "./home/Home.jsx";
+import Home from "./home/Home.jsx";
 import './App.css'
 import {Box} from "@mui/material";
 import {Route, Routes} from "react-router-dom";
@@ -12,6 +12,8 @@ import Reviews from "./review/Reviews.jsx";
 import Blog from "./blog/Blog.jsx";
 import Properties from "./properties/Properties.jsx";
 import HouseDetails from "./properties/HouseDetails.jsx";
+import RealatorPropertyDetails from "./propertyDetails/RealatorPropertyDetails.jsx";
+
 function App() {
 
 console.log('App.jsx')
@@ -36,6 +38,7 @@ console.log('App.jsx')
                 <Route path='/properties' element={<Properties/>} />
                 <Route path='*' element={<h1>Not Found</h1>} />
                 <Route path='/blog' element={<Blog/>} />
+                <Route path='/realator-details' element={<RealatorPropertyDetails />} />
                 {/* other routes */}
             </Routes>
             <Footer/>
