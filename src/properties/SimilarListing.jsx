@@ -5,14 +5,12 @@ import "slick-carousel/slick/slick-theme.css";
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchSimilarListing} from "../redux/similarListingSlice.js";
 import Typography from "@mui/material/Typography";
-import {useLocation, useNavigate} from "react-router-dom";
 import {Box, Button, Grid, useMediaQuery, useTheme} from "@mui/material";
 
 
 const SimilarListing=({propertyID})=> {
     const dispatch = useDispatch()
-    const navigate = useNavigate();
-    const location = useLocation();
+
     const [firstLoad, setFirstLoad] = useState(true);
     const themeInfo = useTheme();
     const isTabletOrBigger = useMediaQuery(themeInfo.breakpoints.up("md"));
@@ -81,7 +79,17 @@ const SimilarListing=({propertyID})=> {
     return (
         <Slider {...settings}>
             {listing.map((item) => (
-                <Box key={item.listing_id} p={2} border={1} borderRadius={2} sx={{ textAlign: isMobile ? 'center' : 'left' }}>
+                <Box
+                    key={item.listing_id}
+                    p={2}
+                    border={1}
+                    borderRadius={2}
+                    sx={{
+                        textAlign: isMobile ? 'center' : 'left',
+                        height: '400px', // Set a fixed height
+                        overflow: 'hidden', // Hide content that overflows the fixed height
+                    }}
+                >
                     <a href={item.href} target="_blank" rel="noopener noreferrer">
                         <img src={item.primary_photo.href} alt="Property" width="100%" />
                     </a>
