@@ -14,6 +14,7 @@ import Properties from "./properties/Properties.jsx";
 import HouseDetails from "./properties/HouseDetails.jsx";
 import RealatorPropertyDetails from "./propertyDetails/RealatorPropertyDetails.jsx";
 
+
 function App() {
 
 console.log('App.jsx')
@@ -39,6 +40,7 @@ console.log('App.jsx')
                 <Route path='*' element={<h1>Not Found</h1>} />
                 <Route path='/blog' element={<Blog/>} />
                 <Route path='/realator-details' element={<RealatorPropertyDetails />} />
+
                 {/* other routes */}
             </Routes>
             <Footer/>

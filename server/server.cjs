@@ -117,7 +117,7 @@ console.log(RAPIDAPI_KEY)
         res.status(500).json({ error: 'An error occurred' });
     }
 });
-app.get('/api/similar/:propertyId', async (req, res) => {
+app.get('/api/similar-listing/:propertyId', async (req, res) => {
     console.log('similar')
     const { propertyId } = req.params;
     const options = {

@@ -1,12 +1,27 @@
 import React, {useEffect} from 'react';
-import {Card, CardContent, CardMedia, Grid, List, ListItem, ListItemText, Typography} from "@mui/material";
+import {
+    Box,
+    Card,
+    CardContent,
+    CardMedia,
+    Grid,
+    List,
+    ListItem,
+    ListItemText,
+    Typography,
+    useMediaQuery,
+    useTheme
+} from "@mui/material";
 import {fetchPropertyDetailRealator} from "../redux/realatorPropertyDetailSlice.js";
 import {useDispatch, useSelector} from "react-redux";
 import {useLocation} from "react-router-dom";
+import SimilarListing from "../properties/SimilarListing.jsx";
 
 const PropertyCard_Realator = () => {
     const dispatch = useDispatch();
 const location = useLocation();
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const data = location.state.detail
     let listing = useSelector((state) => state.realatorPropertyDetail);
     useEffect(() => {
@@ -30,7 +45,7 @@ const pics = listing.data && listing.data.home.photos.map((pic,key) => {
 })
 
     return (
-
+<Box>
         <Card style={{ maxWidth: '800px', margin: '20px auto' }}>
             <CardMedia
                 style={{ height: '300px' }}
@@ -75,7 +90,19 @@ const pics = listing.data && listing.data.home.photos.map((pic,key) => {
                     </Grid>
                 </Grid>
             </CardContent>
+
         </Card>
+    <Grid container spacing={3} sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        padding: '20px',
+    }}>
+        <Typography variant="h3" fontFamily={"'Great Vibes', cursive"} sx={{ paddingTop: isMobile ? '40px' : '0px' }}>Similar Homes</Typography>
+        <Grid item xs={12}>
+            <SimilarListing propertyID={listing.data.home.property_id} />
+        </Grid>
+    </Grid>
+</Box>
     );
 };
 

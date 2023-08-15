@@ -5,6 +5,7 @@ import propertyDetailReducer from './propertyDetailSlice.js';
 import searchHomeReducer from './fetchHousesSlice.js';
 import reviewsReducer from './reviewsSlice.js';
 import propertyDetailSliceRealator from './realatorPropertyDetailSlice.js';
+import similarListingSlice from "./similarListingSlice.js";
 
 const rootReducer = combineReducers({
     agentListings: housesReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     searchHome: searchHomeReducer,
     reviews: reviewsReducer,
     realatorPropertyDetail: propertyDetailSliceRealator,
+    similarListing: similarListingSlice,
 });
 
 const middleware = [...getDefaultMiddleware(), logger];
