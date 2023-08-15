@@ -11,6 +11,12 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@fullcalendar/core": "^6.1.6",
+    "@fullcalendar/daygrid": "^6.1.6",
+    "@fullcalendar/interaction": "^6.1.6",
+    "@fullcalendar/react": "^6.1.6",
+    "@fullcalendar/timegrid": "^6.1.6",
+    "@react-google-maps/api": "^2.18.1",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.6",
     "@mui/styles": "^5.13.2",
