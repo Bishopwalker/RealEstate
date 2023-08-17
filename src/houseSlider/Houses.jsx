@@ -71,7 +71,7 @@ function Houses( ) {
             <Slider {...settings}>
                 {houses && houses.length > 0 && houses[0] && houses[0].data && houses[0].data.results.length > 0 ? (
                     houses[0].data.results.map((property, index) => (
-                        <Card key={index} onClick={()=> navigate('/house-details', { state: { detail: property } })}>
+                        <Card key={index} onClick={()=> navigate('/realator-details', { state: { detail: property } })}>
                             <CardMedia
                                 component="img"
                                 alt="Property Image"

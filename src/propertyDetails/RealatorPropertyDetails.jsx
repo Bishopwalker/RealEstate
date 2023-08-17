@@ -17,8 +17,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {useLocation} from "react-router-dom";
 import SimilarListing from "../properties/SimilarListing.jsx";
 import G_Maps from "../googleMaps/G_Maps.jsx";
+import RealatorSlider from "./RealatorSlider.jsx";
 
 const PropertyCard_Realator = () => {
+
+
+
+
     const dispatch = useDispatch();
 const location = useLocation();
     const theme = useTheme();
@@ -39,20 +44,17 @@ console.log(listing, "listing")
     if (!listing) {
         return <div>Loading...</div>;
     }
-const pics = listing.data && listing.data.home.photos.map((pic,key) => {
-    return (
-        <CardMedia image={pic.href}/>
-    )
-})
+
 
     return (
         <Box>
-            <Card style={{ maxWidth: '800px', margin: '20px auto' }}>
+            <Card style={{ maxWidth: '800px', margin: '20px auto',height:"auto" }}>
                 <CardMedia
                     style={{ height: '300px' }}
                     image={data.primary_photo.href}
                     title="Property Image"
                 />
+
                 <CardContent>
                     <Typography variant="h5">
                         {listing.data.home.location.address.line},{' '}
@@ -104,13 +106,18 @@ const pics = listing.data && listing.data.home.photos.map((pic,key) => {
                             </List>
                         </Grid>
                         <Grid item xs={2}>
+
                             <Typography variant="h4">Map:</Typography>
                             <G_Maps
                                 lat={listing.data.home.location.address.coordinate.lat}
                                 lon={listing.data.home.location.address.coordinate.lon}
                             />
                         </Grid>
+
                     </Grid>
+
+
+                    <RealatorSlider photos={listing.data.home.photos} />
                 </CardContent>
             </Card>
             <Grid
