@@ -68,7 +68,7 @@ const BusinessCard = () => {
         <Grid item xs={12} sm={3}>
           <Card className={classes.card}>
             <CardHeader
-              title="David"
+              title="Title Placeholder"
               subheader="Real Estate Agent"
               className={classes.cardHeader}
             />

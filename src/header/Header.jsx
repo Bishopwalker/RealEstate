@@ -86,7 +86,7 @@ const Header = () => {
               '&:hover': { textDecoration: 'underline' },
             }}
           >
-            David Fine
+            Kahli Gamble
           </Typography>
 
           <IconButton

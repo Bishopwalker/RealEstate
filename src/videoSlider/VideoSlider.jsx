@@ -52,7 +52,6 @@ export default function VideoSlider() {
 
     // Paths to your .mov files
     const videos = [
-        { name: '/fishing.mp4', message: 'Fishing' },
         { name: '/jetski.mp4', message: 'Jet Skiing' },
         { name: '/mov1.mp4', message: 'Crabbing' },
         { name: '/mov2.mp4', message: 'Kayaking' },
@@ -60,11 +59,8 @@ export default function VideoSlider() {
     ];
 
     const messages = [
-        { short: 'Find A Fine Home!', long: 'The Northern Necks Waterfront expert for over 25 years!' },
-        { short: 'Find A Fine Home!', long: `Sit Back and Enjoy the <b>Fine</b>r Things in Life!` },
-        { short: 'Find A Fine Home!', long: 'How long before you forget about the beltway traffic?' },
-        { short: 'Find A Fine Home!', long: 'You Could be back in DC in 2 hours!' },
-        { short: 'Find A Fine Home!', long: 'Striper, Flounder, and Cobia, oh my!' },
+        { short: 'Find A Fine Home!', long: 'Welcome to your Home Away From Home!' },
+        { short: 'Find A Fine Home!', long: `Click Here to Enter our Portal!` },
     ]
 
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -121,7 +117,7 @@ export default function VideoSlider() {
                     }}>
                     <Link to={"/properties"}>
                     <Typography variant="h5">
-                        {isMobile ? "Find A Home!" : "Find A Fine Home Today!"} <ShoppingCartIcon/>
+                        {isMobile ? "Enter Portal!" : "Enter Our Apartment Payment Portal!"} <ShoppingCartIcon/>
                     </Typography>
                     </Link>
                 </Button>
