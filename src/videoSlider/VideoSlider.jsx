@@ -1,31 +1,83 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import Typography from "@mui/material/Typography";
+import {Box, useMediaQuery, useTheme} from "@mui/material";
+import Button from "@mui/material/Button";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import './style.css';
+import {Link} from "react-router-dom";
+
 export default function VideoSlider() {
-    var settings = {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const settings = {
         dots: true,
         infinite: true,
-        speed: 500,
+        autoplay: true,
+        autoplaySpeed: 30000,
+        speed: 1000,
         slidesToShow: 1,
-        slidesToScroll: 1
+        slidesToScroll: 1,
+        initialSlide: 0,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true,
+                },
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    initialSlide: 0,
+                },
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                },
+            },
+        ],
     };
 
     // Paths to your .mov files
     const videos = [
-       '/mov.mp4',
-        '/mov1.mp4',
-        '/mov2.mp4',
-        '/mov3.mp4',
+        { name: '/jetski.mp4', message: 'Jet Skiing' },
+        { name: '/mov1.mp4', message: 'Crabbing' },
+        { name: '/mov2.mp4', message: 'Kayaking' },
+        { name: '/mov3.mp4', message: 'Sailing' },
     ];
+
+    const messages = [
+        { short: 'Find A Fine Home!', long: 'Welcome to your Home Away From Home!' },
+        { short: 'Find A Fine Home!', long: `Click Here to Enter our Portal!` },
+    ]
+
+    const [currentSlide, setCurrentSlide] = useState(0);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentSlide(prevSlide => (prevSlide + 1) % videos.length);
+        }, 30000);
+        return () => clearInterval(interval);
+    }, [videos.length]);
+
     return (
-        <div style={{position: "relative"}}>
-            <Slider {...settings}>
+<Box style={{ position: "relative" }}>
+            <Slider {...settings} afterChange={setCurrentSlide}>
                 {videos.map((video, index) => (
-                    <div key={index}>
-                        <video style={{width: "90vw", height: "90vh"}} controls>
-                            <source src={video} type="video/mp4" />
+                    <div className="sliderCard" key={index}>
+                        <video style={{ width: "100%", height: "100%" }} controls>
+                            <source src={video.name} type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
                     </div>
@@ -33,29 +85,45 @@ export default function VideoSlider() {
             </Slider>
             <div style={{
                 position: "absolute",
-                bottom: "100px",
+                top: "50px",
                 left: "200px",
-
                 textAlign: "left"
             }}>
                 <Typography variant="h4" style={{
-                    fontSize: "40px",
-                    color: "white",
+                    fontFamily: 'Montserrat, sans-serif',
+                    fontSize: isMobile ? "20px" : "33px",
+                    color: "#2d3436",
+                    fontWeight: "bold",
                 }}>
-                    The Leader in Luxury Waterfront Real Estate
+                    {isMobile ? messages[currentSlide].short : messages[currentSlide].long}
                 </Typography>
-                <button
+            </div>
+            <div style={{
+                position: "absolute",
+                bottom: "100px",
+                right: "100px",
+            }}>
+                <Button
+                    onClick={() => console.log("button clicked")}
+                    variant="contained"
                     style={{
                         marginTop: "10px",
-                        fontSize: "20px",
-                        backgroundColor: "black",
-                        color: "white",
-                        padding: "15px 20px",
+                        fontFamily: 'Montserrat, sans-serif',
+                        fontSize: isMobile ? "8px" : "16px",
+                        color: "#dfe6e9",
+						backgroundColor: "#2d3436",
+                        padding: isMobile ? "5px 10px" : "8px 15px",
+                        borderRadius: "10px",
                     }}>
-                    Find a Fine Home
-                </button>
+                    <Link to={"/properties"}>
+                    <Typography variant="h5">
+                        {isMobile ? "Enter Portal!" : "Enter Our Apartment Payment Portal!"} <ShoppingCartIcon/>
+                    </Typography>
+                    </Link>
+                </Button>
             </div>
-        </div>
+        </Box>
     );
-
 }
+
+
